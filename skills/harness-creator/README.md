@@ -18,7 +18,7 @@ Production harness engineering skill for AI coding agents, distilled from Learn 
 ## Installation
 
 ```bash
-npx skills add github:harness-creator
+npx skills add walkinglabs/learn-harness-engineering
 ```
 
 Or manually copy the `skills/harness-creator/` directory to your skill path.
