@@ -33,7 +33,7 @@ Zaten bildiğiniz bazı araçlara bakın:
 - **Depo tek doğruluk kaynağıdır**: Ajanın göremediği her şey, pratik olarak yoktur. OpenAI depoyu "kayıt sistemi" olarak ele alır — gerekli tüm bağlam yapılandırılmış dosyalar ve net dizin organizasyonu aracılığıyla orada yaşamalıdır.
 - **Manuel değil, harita verin**: OpenAI'nin tecrübesi — `AGENTS.md` bir ansiklopedi değil, bir içerik sayfası olmalıdır. Yaklaşık 100 satır yeterlidir. Sığmıyorsa `docs/` dizinine bölün ve ajanın talep üzerine okumasına izin verin.
 - **Kısıtlayın, mikromanaje etmeyin**: İyi bir harness ajanı tek tek talimatları saymak yerine yürütülebilir kurallarla kısıtlar. OpenAI "değişmezleri zorla, uygulamayı mikromanaje etme" diyor; Anthropic ajanların kendi işlerini güvenle övdüğünü buldu ve çözüm "işi yapan kişi" ile "işi kontrol eden kişiyi" ayırmak.
-- **Bileşenleri tek tek kaldırın**: Her harness bileşeninin değerini ölçmek için bunları tek tek kaldırın ve hangisinin kaldırılmasının en büyük performans düşüşüne neden olduğunu görün. Anthropic bu yöntemi kullandı ve modeller güçlendikçe bazı bileşenlerin artık kritik olmaktan çıktığını buldu — ancak her zaman yenileri ortaya çıkıyor.
+- **Bileşenleri tek tek kaldırın**: Her harness bileşeninin marjinal katkısını ölçmek için bunları tek tek kaldırın ve hangisinin kaldırılmasının en büyük performans düşüşüne neden olduğunu görün. Anthropic bu yöntemi kullandı ve modeller güçlendikçe bazı bileşenlerin artık kritik olmaktan çıktığını buldu — ancak her zaman yenileri ortaya çıkıyor.
 
 ## Beş alt sistemli harness modeli
 
@@ -68,7 +68,7 @@ Doğrulama komutları:
 
 Herhangi bir alt sistemin eksikliği mutfakta bir işlevsel alanın eksikliği gibidir — yine de yemek yapabilirsiniz, ama her zaman zahmetlidir.
 
-**Harness kalitesini tanılama**: "Eşit modelli kontrol" kullanın. Modeli sabit tutun, alt sistemleri tek tek kaldırın, hangisinin kaldırılmasının en büyük performans düşüşüne neden olduğunu ölçün. Bu sizin darboğazınızdır — çabanızı oraya odaklayın. Bir mutfakta darboğazı bulmak gibi: tarif rafını alın ve ne kadar yavaşladığını görün, ocağı kapatın ve etkiyi görün.
+**Harness bileşen değerini ölçme**: "Eşit modelli kontrol" kullanın. Modeli sabit tutun, alt sistemleri tek tek kaldırın ve hangisinin kaldırılmasının en büyük performans düşüşüne neden olduğunu ölçün. En büyük düşüş, o görevde marjinal katkısı en yüksek olan bileşeni belirler — otomatik olarak darboğazı belirlemez. Darboğazı tespit etmek için bu deneyi başarısızlık günlükleri ve atıflarla birleştirin: belirsiz görev, yetersiz bağlam, yeniden üretilemeyen ortam, eksik doğrulama geri bildirimi veya bozuk durum yönetimi.
 
 ## Bir takımın gerçek hikâyesi
 
@@ -89,7 +89,7 @@ Dört iterasyon, model hiç değişmedi, başarı oranı %20'den neredeyse %100'
 - Harness = Talimatlar + Araçlar + Ortam + Durum + Geri Bildirim. Beş alt sistem, bir mutfağın beş işlevsel alanı gibi — hepsi zorunlu.
 - Eğer model ağırlığı değilse, harness'tır. Harness'ınız model yeteneğinin ne kadarının kullanıldığını belirler.
 - Beş alt sistem arasında geri bildirim alt sistemi genellikle en düşük yatırım ve en yüksek getiriye sahiptir. Önce doğrulama komutlarınızı doğru ayarlayın — kalite kontrol penceresi en değerli yükseltmedir.
-- Her alt sistemin marjinal katkısını ölçmek için "eşit modelli kontrol" kullanın — sezgiyle gitmeyin.
+- Her alt sistemin marjinal katkısını ölçmek için "eşit modelli kontrol" kullanın — sezgiyle gitmeyin; gerçek darboğazı bulmak için başarısızlık günlüklerini ve atıflarını kullanın.
 - Harness da kod gibi çürür. Düzenli denetim yapın, teknik borç gibi harness borcunu da ödeyin.
 
 ## Daha fazla okuma

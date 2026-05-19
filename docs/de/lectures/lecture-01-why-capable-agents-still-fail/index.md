@@ -17,9 +17,9 @@ Hinter diesen Zahlen steckt aber eine kontraintuitive Wahrheit.
 
 Anthropic führte ein kontrolliertes Experiment durch. Gleicher Prompt ("baue einen 2D-Retro-Game-Maker"), gleiches Modell (Opus 4.5). Erster Lauf: nackt, ohne Unterstützung - 20 Minuten, 9 Dollar, die Kernfunktionen des Spiels funktionierten überhaupt nicht. Zweiter Lauf: vollständiger Harness (Planner + Generator + Evaluator als Drei-Agenten-Architektur) - 6 Stunden, 200 Dollar, das Spiel war spielbar.
 
-Sie änderten nicht das Modell. Opus 4.5 blieb Opus 4.5. Was sich änderte, war der Sattel.
+Sie änderten nicht das Modell. Opus 4.5 blieb Opus 4.5. Was sich änderte, war das Zaumzeug.
 
-OpenAIs Artikel zu Harness Engineering aus dem Jahr 2025 formuliert es direkt: Codex wechselt in einem gut geharnessten Repository von "unzuverlässig" zu "zuverlässig". Achte auf die Wortwahl - nicht "ein bisschen besser", sondern ein qualitativer Sprung. Wie bei einem Vollblutpferd: Du kannst ohne Sattel reiten, aber du kommst nicht weit, nicht schnell, und ein Sturz ist keine Überraschung. Der Harness ist dieser Sattel - **alles in der Engineering-Infrastruktur außerhalb der Modellgewichte.**
+OpenAIs Artikel zu Harness Engineering aus dem Jahr 2025 formuliert es direkt: Codex wechselt in einem gut geharnessten Repository von "unzuverlässig" zu "zuverlässig". Achte auf die Wortwahl - nicht "ein bisschen besser", sondern ein qualitativer Sprung. Wie bei einem Vollblutpferd: Du kannst ohne passendes Zaumzeug reiten, aber du kommst nicht weit, nicht schnell, und ein Sturz ist keine Überraschung. Der Harness ist dieses gesamte Zaumzeug - **alles in der Engineering-Infrastruktur außerhalb der Modellgewichte.**
 
 ## Wo Agenten tatsächlich stecken bleiben
 
@@ -40,7 +40,7 @@ Lange Aufgaben über mehrere Sitzungen sind noch schlimmer: Alle Erkenntnisse au
 Mit diesen Szenarien im Hinterkopf sind die folgenden Begriffe kein bloßer Jargon mehr:
 
 - **Capability Gap**: Die große Lücke zwischen Modellleistung auf Benchmarks und Leistung bei realen Aufgaben. Eine Erfolgsrate von 50-60% auf SWE-bench Verified bedeutet, dass fast die Hälfte realer Issues nicht gelöst wird.
-- **Harness**: Alles außerhalb des Modells - Anweisungen, Tools, Umgebung, Zustandsverwaltung, Verifikationsfeedback. Wenn es keine Modellgewichte sind, gehört es zum Harness. Das ist der "Sattel", von dem wir gesprochen haben.
+- **Harness**: Alles außerhalb des Modells - Anweisungen, Tools, Umgebung, Zustandsverwaltung, Verifikationsfeedback. Wenn es keine Modellgewichte sind, gehört es zum Harness. Das ist das "Zaumzeug", von dem wir gesprochen haben.
 - **Harness-Induced Failure**: Das Modell hat grundsätzlich genug Fähigkeit, aber die Ausführungsumgebung hat strukturelle Defekte. Anthropics kontrolliertes Experiment hat genau das gezeigt.
 - **Verification Gap**: Die Lücke zwischen dem Vertrauen des Agenten in sein Ergebnis und der tatsächlichen Korrektheit. Der Agent sagt "ich bin fertig", obwohl er nicht fertig ist - der häufigste Fehlermodus.
 - **Diagnostic Loop**: Ausführen, Fehler beobachten, einer bestimmten Harness-Schicht zuordnen, diese Schicht reparieren, erneut ausführen. Das ist die Kernmethodik von Harness Engineering.
@@ -52,7 +52,7 @@ Kernprinzip: **Wenn etwas scheitert, tausche nicht zuerst das Modell aus - prüf
 
 Konkrete Schritte:
 
-**Ordne jeden Fehler einer bestimmten Schicht zu.** Sag nicht nur "das Modell taugt nichts". Frage: War die Aufgabe unklar? War der Kontext unzureichend? Gab es keine Verifikationsmethode? Ordne jeden Fehler einer der fünf Fehlerschichten zu: Aufgabenspezifikation, Kontextbereitstellung, Ausführungsumgebung, Verifikationsfeedback, Zustandsverwaltung. Wenn du diese Gewohnheit aufbaust, wirst du "das Modell ist nicht gut genug" immer seltener in deinen Logs sehen.
+**Ordne jeden Fehler einer bestimmten Schicht zu.** Sag nicht nur "das Modell taugt nichts". Frage: War die Aufgabe unklar? War der Kontext unzureichend? Gab es keine Verifikationsmethode? Ordne jeden Fehler einer der fünf Fehlerschichten zu: Aufgabenspezifikation, Kontextbereitstellung, Ausführungsumgebung, Verifikationsfeedback, Zustandsverwaltung. Das sind praktische Diagnoseschichten, nicht die sechs Glossarbegriffe oben. Wenn du diese Gewohnheit aufbaust, wirst du "das Modell ist nicht gut genug" immer seltener in deinen Logs sehen.
 
 **Schreibe für jede Aufgabe eine explizite Definition of Done.** Sag nicht "füge eine Suchfunktion hinzu". Sag:
 ```
@@ -94,7 +94,7 @@ Sie änderten nicht das Modell. Sie änderten den Harness.
 
 ## Wichtigste Erkenntnisse
 
-- Modellfähigkeit und Ausführungszuverlässigkeit sind verschiedene Dinge. Auch ein Vollblut braucht einen guten Sattel.
+- Modellfähigkeit und Ausführungszuverlässigkeit sind verschiedene Dinge. Auch ein Vollblut braucht gutes Zaumzeug.
 - Wenn etwas scheitert, prüfe zuerst den Harness und dann das Modell. Modelle zu wechseln ist die teuerste Option - und oft ist es nicht einmal ein Modellproblem.
 - Jeder Fehler ist ein Signal: Dein Harness hat einen strukturellen Defekt. Finde ihn und behebe ihn.
 - Fünf Verteidigungsschichten: Aufgabenspezifikation, Kontextbereitstellung, Ausführungsumgebung, Verifikationsfeedback, Zustandsverwaltung. Prüfe sie systematisch, wie ein Arzt die häufigsten Ursachen zuerst ausschließt.

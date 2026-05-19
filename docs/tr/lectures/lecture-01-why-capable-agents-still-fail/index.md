@@ -17,9 +17,9 @@ Ama bu sayıların ardında sezgilere ters bir gerçek yatıyor.
 
 Anthropic kontrollü bir deney yaptı. Aynı prompt ("2B retro oyun yapımcısı geliştir"), aynı model (Opus 4.5). İlk koşu: çıplak, hiçbir destek yok — 20 dakika, 9 dolar, oyunun temel özellikleri hiç çalışmadı. İkinci koşu: tam harness (planlayıcı + üretici + değerlendirici üç-ajan mimarisi) — 6 saat, 200 dolar, oyun oynanabilir hâle geldi.
 
-Modeli değiştirmediler. Opus 4.5 yine Opus 4.5'ti. Değişen şey eyerdi.
+Modeli değiştirmediler. Opus 4.5 yine Opus 4.5'ti. Değişen şey koşum takımıydı.
 
-OpenAI'nin 2025 harness mühendisliği makalesi bunu açıkça söylüyor: iyi bir harness'a sahip bir depoda Codex "güvenilmez"den "güvenilir"e geçiyor. İfadeye dikkat edin — "biraz daha iyi" değil, niteliksel bir sıçrama. Tıpkı safkan bir at gibi: eyersiz binebilirsiniz ama uzağa gidemezsiniz, hızlı gidemezsiniz, düşmek de sürpriz olmaz. Harness işte o eyerdir — **model ağırlıkları dışındaki tüm mühendislik altyapısı.**
+OpenAI'nin 2025 harness mühendisliği makalesi bunu açıkça söylüyor: iyi bir harness'a sahip bir depoda Codex "güvenilmez"den "güvenilir"e geçiyor. İfadeye dikkat edin — "biraz daha iyi" değil, niteliksel bir sıçrama. Tıpkı safkan bir at gibi: doğru koşum takımı olmadan binebilirsiniz ama uzağa gidemezsiniz, hızlı gidemezsiniz, düşmek de sürpriz olmaz. Harness işte o tam koşum takımıdır — **model ağırlıkları dışındaki tüm mühendislik altyapısı.**
 
 ## Ajanlar gerçekte nerede takılıyor
 
@@ -40,7 +40,7 @@ Birden fazla oturuma yayılan uzun görevler daha da kötüdür — önceki otur
 Bu senaryolar göz önünde bulundurulduğunda bu kavramlar artık sadece jargon değil:
 
 - **Yetenek farkı (Capability Gap)**: Modelin benchmark performansı ile gerçek görev performansı arasındaki büyük uçurum. SWE-bench Verified üzerindeki %50-60 başarı oranı, gerçek sorunların neredeyse yarısının çözülemediği anlamına gelir.
-- **Harness**: Modelin dışındaki her şey — talimatlar, araçlar, ortam, durum yönetimi, doğrulama geri bildirimi. Eğer model ağırlığı değilse, harness'tır. "Eyer" diye andığımız şey.
+- **Harness**: Modelin dışındaki her şey — talimatlar, araçlar, ortam, durum yönetimi, doğrulama geri bildirimi. Eğer model ağırlığı değilse, harness'tır. "Koşum takımı" diye andığımız şey.
 - **Harness kaynaklı başarısızlık (Harness-Induced Failure)**: Modelin yeterli yeteneği vardır ama yürütme ortamı yapısal kusurlara sahiptir. Anthropic'in kontrollü deneyi bunu zaten kanıtladı.
 - **Doğrulama farkı (Verification Gap)**: Ajanın çıktısına olan güveni ile gerçek doğruluk arasındaki fark. Ajan iş bitmemişken "bitirdim" diyor — bu en yaygın başarısızlık modu.
 - **Tanılayıcı döngü (Diagnostic Loop)**: Yürüt, başarısızlığı gözlemle, belirli bir harness katmanına ata, o katmanı düzelt, yeniden yürüt. Bu, harness mühendisliğinin temel metodolojisidir.
@@ -52,7 +52,7 @@ Temel ilke: **Bir şey ters gittiğinde önce modeli değiştirmeyin — harness
 
 Somut adımlar:
 
-**Her başarısızlığı belirli bir katmana atfedin.** Sadece "model berbat" demeyin. Sorun: Görev belirsiz miydi? Bağlam yetersiz miydi? Doğrulama yöntemleri yok muydu? Her başarısızlığı beş başarısızlık katmanından birine eşleyin (görev belirleme, bağlam sağlama, yürütme ortamı, doğrulama geri bildirimi, durum yönetimi). Bu alışkanlığı kazanın ve "model yeterince iyi değil" ifadesinin günlüklerinizde gittikçe azaldığını göreceksiniz.
+**Her başarısızlığı belirli bir katmana atfedin.** Sadece "model berbat" demeyin. Sorun: Görev belirsiz miydi? Bağlam yetersiz miydi? Doğrulama yöntemleri yok muydu? Her başarısızlığı beş başarısızlık katmanından birine eşleyin: görev belirleme, bağlam sağlama, yürütme ortamı, doğrulama geri bildirimi ve durum yönetimi. Bunlar pratik tanı katmanlarıdır, yukarıdaki altı sözlük terimi değildir. Bu alışkanlığı kazanın ve "model yeterince iyi değil" ifadesinin günlüklerinizde gittikçe azaldığını göreceksiniz.
 
 **Her görev için açık bir Bitirme Tanımı yazın.** "Bir arama özelliği ekle" demeyin. Şunu söyleyin:
 ```
@@ -94,7 +94,7 @@ Modeli değiştirmediler. Harness'ı değiştirdiler.
 
 ## Önemli çıkarımlar
 
-- Model yeteneği ve yürütme güvenilirliği farklı şeylerdir. Safkan bir at hâlâ iyi bir eyere ihtiyaç duyar.
+- Model yeteneği ve yürütme güvenilirliği farklı şeylerdir. Safkan bir at hâlâ iyi bir koşum takımına ihtiyaç duyar.
 - Bir şey ters gittiğinde önce harness'ı kontrol edin, sonra modeli. Model değiştirmek en pahalı seçenektir — ve çoğu zaman model sorunu bile değildir.
 - Her başarısızlık bir sinyaldir: harness'ınızın yapısal bir kusuru var. Onu bulun, düzeltin.
 - Beş savunma katmanı: görev belirleme, bağlam sağlama, yürütme ortamı, doğrulama geri bildirimi, durum yönetimi. Bir doktorun en yaygın nedenleri önce eleyerek yaptığı gibi sistematik olarak kontrol edin.

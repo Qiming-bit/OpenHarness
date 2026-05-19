@@ -17,9 +17,9 @@ But behind these numbers lies a counterintuitive truth.
 
 Anthropic ran a controlled experiment. Same prompt ("build a 2D retro game maker"), same model (Opus 4.5). First run: bare, no support — 20 minutes, $9, the game's core features didn't work at all. Second run: full harness (planner + generator + evaluator three-agent architecture) — 6 hours, $200, the game was playable.
 
-They didn't change the model. Opus 4.5 was still Opus 4.5. What changed was the saddle.
+They didn't change the model. Opus 4.5 was still Opus 4.5. What changed was the tack.
 
-OpenAI's 2025 harness engineering article puts it plainly: Codex in a well-harnessed repository goes from "unreliable" to "reliable." Note their wording — not "a bit better," but a qualitative shift. Like a thoroughbred: you can ride it without a saddle, but you won't go far, won't go fast, and falling off is no surprise. The harness is that saddle — **everything in the engineering infrastructure outside the model weights.**
+OpenAI's 2025 harness engineering article puts it plainly: Codex in a well-harnessed repository goes from "unreliable" to "reliable." Note their wording — not "a bit better," but a qualitative shift. Like a thoroughbred: you can ride it without proper tack, but you won't go far, won't go fast, and falling off is no surprise. The harness is that full set of tack — **everything in the engineering infrastructure outside the model weights.**
 
 ## Where Agents Actually Get Stuck
 
@@ -40,7 +40,7 @@ Long tasks spanning sessions are even worse — all discoveries from the previou
 With these scenarios in mind, these concepts are no longer just jargon:
 
 - **Capability Gap**: The huge gulf between model performance on benchmarks and performance on real tasks. A 50-60% pass rate on SWE-bench Verified means nearly half of real issues can't be resolved.
-- **Harness**: Everything outside the model — instructions, tools, environment, state management, verification feedback. If it's not model weights, it's harness. What we've been calling the "saddle."
+- **Harness**: Everything outside the model — instructions, tools, environment, state management, verification feedback. If it's not model weights, it's harness. What we've been calling the "tack."
 - **Harness-Induced Failure**: The model has enough capability, but the execution environment has structural defects. Anthropic's controlled experiment already proved this.
 - **Verification Gap**: The gap between the agent's confidence in its output and actual correctness. The agent says "I'm done" when it's not done — this is the most common failure mode.
 - **Diagnostic Loop**: Execute, observe failure, attribute to a specific harness layer, fix that layer, re-execute. This is the core methodology of harness engineering.
@@ -52,7 +52,7 @@ Core principle: **When things fail, don't swap the model first — check the har
 
 Concrete steps:
 
-**Attribute every failure to a specific layer.** Don't just say "the model sucks." Ask: was the task unclear? Was context insufficient? Were there no verification methods? Map each failure to one of the five failure layers (task specification, context provision, execution environment, verification feedback, state management). Build this habit, and you'll find "the model isn't good enough" appearing less and less in your logs.
+**Attribute every failure to a specific layer.** Don't just say "the model sucks." Ask: was the task unclear? Was context insufficient? Were there no verification methods? Map each failure to one of the five failure layers: task specification, context provision, execution environment, verification feedback, and state management. These are the practical diagnostic layers, not the six glossary terms above. Build this habit, and you'll find "the model isn't good enough" appearing less and less in your logs.
 
 **Write an explicit Definition of Done for every task.** Don't say "add a search feature." Say:
 ```
@@ -94,7 +94,7 @@ They didn't change the model. They changed the harness.
 
 ## Key Takeaways
 
-- Model capability and execution reliability are different things. A thoroughbred still needs a good saddle.
+- Model capability and execution reliability are different things. A thoroughbred still needs good tack.
 - When things fail, check the harness first, then the model. Swapping models is the most expensive option — and often it's not even a model problem.
 - Every failure is a signal: your harness has a structural defect. Find it, fix it.
 - Five defense layers: task specification, context provision, execution environment, verification feedback, state management. Check them systematically, like a doctor ruling out the most common causes first.

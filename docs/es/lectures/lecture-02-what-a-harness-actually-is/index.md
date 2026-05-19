@@ -33,7 +33,7 @@ Mira algunas herramientas que ya conoces:
 - **El repositorio es la única fuente de verdad**: Cualquier cosa que el agente no pueda ver, para todos los efectos prácticos, no existe. OpenAI trata el repositorio como el "sistema de registro" — todo el contexto necesario debe vivir ahí, a través de archivos estructurados y una organización clara de directorios.
 - **Da un mapa, no un manual**: La experiencia de OpenAI — `AGENTS.md` debería ser una página de directorio, no una enciclopedia. Alrededor de 100 líneas es suficiente. Si no cabe, divídelo en el directorio `docs/` y deja que el agente lea bajo demanda.
 - **Restringe, no microgestiones**: Un buen harness usa reglas ejecutables para restringir al agente, en lugar de enumerar instrucciones una por una. OpenAI dice "haz cumplir invariantes, no microgestiones la implementación"; Anthropic descubrió que los agentes elogian confiadamente su propio trabajo, y la solución es separar "la persona que hace el trabajo" de "la persona que revisa el trabajo."
-- **Elimina componentes uno a la vez**: Para cuantificar el valor de cada componente del harness, elimínalos uno a la vez y observa cuál eliminación causa la mayor caída de rendimiento. Anthropic usó este método y descubrió que a medida que los modelos se vuelven más fuertes, algunos componentes dejan de ser críticos — pero siempre surgen nuevos.
+- **Elimina componentes uno a la vez**: Para cuantificar la contribución marginal de cada componente del harness, elimínalos uno a la vez y observa cuál eliminación causa la mayor caída de rendimiento. Anthropic usó este método y descubrió que a medida que los modelos se vuelven más fuertes, algunos componentes dejan de ser críticos — pero siempre surgen nuevos.
 
 ## El modelo de harness de cinco subsistemas
 
@@ -68,7 +68,7 @@ Verification commands:
 
 Que falte cualquier subsistema es como que falte un área funcional en la cocina — todavía puedes cocinar, pero siempre será incómodo.
 
-**Diagnosticando la calidad del harness**: Usa "control isométrico del modelo." Mantén el modelo fijo, elimina subsistemas uno a la vez, mide cuál eliminación causa la mayor caída de rendimiento. Ese es tu cuello de botella — enfoca tu esfuerzo ahí. Como encontrar el cuello de botella en una cocina: quita la estantería de recetas y mira cuánto más lento se vuelve todo, apaga la estufa y mira el impacto.
+**Cuantificar el valor de los componentes del harness**: Usa "control isométrico del modelo." Mantén el modelo fijo, elimina subsistemas uno a la vez y mide cuál eliminación causa la mayor caída de rendimiento. La mayor caída identifica el componente con mayor contribución marginal en esa tarea, no automáticamente el cuello de botella. Para localizar el cuello de botella, combina el experimento con registros de fallos y atribución: tarea poco clara, contexto insuficiente, entorno no reproducible, falta de feedback de verificación o gestión de estado rota.
 
 ## La historia real de un equipo
 
@@ -89,7 +89,7 @@ Cuatro iteraciones, el modelo no cambió en absoluto, la tasa de éxito pasó de
 - Harness = Instrucciones + Herramientas + Entorno + Estado + Retroalimentación. Cinco subsistemas, como las cinco áreas funcionales de una cocina — todos esenciales.
 - Si no son pesos del modelo, es harness. Tu harness determina cuánta capacidad del modelo se realiza.
 - Entre los cinco subsistemas, el subsistema de retroalimentación suele tener la menor inversión y el mayor retorno. Configura bien tus comandos de verificación primero — la ventana de control de calidad es la mejora más valiosa.
-- Usa "control isométrico del modelo" para cuantificar la contribución marginal de cada subsistema — no te guíes por la intuición.
+- Usa "control isométrico del modelo" para cuantificar la contribución marginal de cada subsistema; usa registros de fallos y atribución para localizar el cuello de botella real.
 - El harness se degrada como el código. Audita regularmente, paga la deuda de harness como pagas la deuda técnica.
 
 ## Lecturas adicionales

@@ -33,7 +33,7 @@ Regardez quelques outils que vous connaissez déjà :
 - **Le repo est l'unique source de vérité** : Tout ce que l'agent ne peut pas voir, en pratique, n'existe pas. OpenAI traite le repo comme le « système de référence » — tout le contexte nécessaire doit y vivre, via des fichiers structurés et une organisation claire des répertoires.
 - **Donnez un plan, pas un manuel** : L'expérience d'OpenAI — `AGENTS.md` devrait être une page de sommaire, pas une encyclopédie. Une centaine de lignes suffit. Si ça ne tient pas, découpez-le dans le répertoire `docs/` et laissez l'agent lire à la demande.
 - **Contraindre, pas micromanager** : Un bon harness utilise des règles exécutables pour contraindre l'agent, plutôt que d'énumérer les instructions une par une. OpenAI dit « imposez des invariants, ne micromanagez pas l'implémentation » ; Anthropic a constaté que les agents font l'éloge de leur propre travail en toute confiance, et la solution est de séparer « celui qui fait le travail » de « celui qui vérifie le travail ».
-- **Retirer les composants un par un** : Pour quantifier la valeur de chaque composant du harness, retirez-les un par un et observez quel retrait provoque la plus forte baisse de performance. Anthropic a utilisé cette méthode et a découvert qu'à mesure que les modèles deviennent plus puissants, certains composants cessent d'être critiques — mais de nouveaux apparaissent toujours.
+- **Retirer les composants un par un** : Pour quantifier la contribution marginale de chaque composant du harness, retirez-les un par un et observez quel retrait provoque la plus forte baisse de performance. Anthropic a utilisé cette méthode et a découvert qu'à mesure que les modèles deviennent plus puissants, certains composants cessent d'être critiques — mais de nouveaux apparaissent toujours.
 
 ## Le modèle de harness à cinq sous-systèmes
 
@@ -68,7 +68,7 @@ Verification commands:
 
 L'absence d'un sous-système est comme l'absence d'une zone fonctionnelle dans la cuisine — vous pouvez toujours cuisiner, mais c'est toujours laborieux.
 
-**Diagnostiquer la qualité du harness** : Utilisez le « contrôle isométrique du modèle ». Gardez le modèle fixe, retirez les sous-systèmes un par un, mesurez quel retrait provoque la plus forte baisse de performance. C'est votre goulot d'étranglement — concentrez vos efforts là-dessus. Comme trouver le goulot d'étranglement dans une cuisine : retirez l'étagère à recettes et voyez combien les choses ralentissent, coupez la cuisinière et observez l'impact.
+**Quantifier la valeur des composants du harness** : Utilisez le « contrôle isométrique du modèle ». Gardez le modèle fixe, retirez les sous-systèmes un par un et mesurez quel retrait provoque la plus forte baisse de performance. La plus forte baisse indique le composant à plus forte contribution marginale dans cette tâche, pas automatiquement le goulot d'étranglement. Pour localiser le vrai goulot, combinez cette expérience avec des journaux d'échec et une attribution : tâche floue, contexte insuffisant, environnement non reproductible, feedback de vérification manquant ou gestion d'état rompue.
 
 ## L'histoire vraie d'une équipe
 
@@ -89,7 +89,7 @@ Quatre itérations, le modèle n'a pas du tout changé, le taux de réussite est
 - Harness = Instructions + Outils + Environnement + État + Retour. Cinq sous-systèmes, comme les cinq zones fonctionnelles d'une cuisine — tous essentiels.
 - Si ce ne sont pas les poids du modèle, c'est du harness. Votre harness détermine quelle part de la capacité du modèle est réellement exploitée.
 - Parmi les cinq sous-systèmes, le sous-système de retour offre généralement l'investissement le plus faible et le rendement le plus élevé. Configurez d'abord vos commandes de vérification — la fenêtre de contrôle qualité est l'amélioration la plus rentable.
-- Utilisez le « contrôle isométrique du modèle » pour quantifier la contribution marginale de chaque sous-système — ne vous fiez pas à votre intuition.
+- Utilisez le « contrôle isométrique du modèle » pour quantifier la contribution marginale de chaque sous-système ; utilisez les journaux d'échec et l'attribution pour localiser le vrai goulot d'étranglement.
 - Le harness se dégrade comme le code. Auditez régulièrement, remboursez la dette de harness comme vous remboursez la dette technique.
 
 ## Pour aller plus loin

@@ -33,7 +33,7 @@ Betrachten Sie einige Tools, die Sie bereits kennen:
 - **Das Repo ist die einzige Quelle der Wahrheit**: Alles, was der Agent nicht sehen kann, existiert für alle praktischen Zwecke nicht. OpenAI behandelt das Repo als „system of record" — der gesamte notwendige Kontext muss dort leben, durch strukturierte Dateien und klare Verzeichnisorganisation.
 - **Eine Karte geben, kein Handbuch**: OpenAIs Erfahrung — `AGENTS.md` sollte eine Übersichtsseite sein, keine Enzyklopädie. Etwa 100 Zeilen reichen aus. Wenn es nicht passt, teilen Sie es in das `docs/`-Verzeichnis auf und lassen Sie den Agenten bei Bedarf lesen.
 - **Einschränken, nicht mikroverwalten**: Ein gutes harness verwendet ausführbare Regeln, um den Agenten einzuschränken, anstatt Anweisungen einzeln aufzuzählen. OpenAI sagt „enforce invariants, don't micromanage implementation"; Anthropic hat festgestellt, dass Agenten ihre eigene Arbeit zuversichtlich loben, und die Lösung darin besteht, „die Person, die die Arbeit erledigt" von „der Person, die die Arbeit prüft" zu trennen.
-- **Komponenten einzeln entfernen**: Um den Wert jeder harness-Komponente zu quantifizieren, entfernen Sie sie einzeln und prüfen Sie, welche Entfernung den größten Leistungsabfall verursacht. Anthropic hat diese Methode angewandt und festgestellt, dass mit stärker werdenden Modellen einige Komponenten aufhören, kritisch zu sein — aber neue tauchen immer auf.
+- **Komponenten einzeln entfernen**: Um den Grenzbeitrag jeder harness-Komponente zu quantifizieren, entfernen Sie sie einzeln und prüfen Sie, welche Entfernung den größten Leistungsabfall verursacht. Anthropic hat diese Methode angewandt und festgestellt, dass mit stärker werdenden Modellen einige Komponenten aufhören, kritisch zu sein — aber neue tauchen immer auf.
 
 ## Das Fünf-Subsystem-harness-Modell
 
@@ -68,7 +68,7 @@ Verification commands:
 
 Wenn ein Subsystem fehlt, ist das wie ein fehlender Funktionsbereich in der Küche — Sie können immer noch kochen, aber es ist immer umständlich.
 
-**harness-Qualität diagnostizieren**: Verwenden Sie „isometrische Modellkontrolle". Halten Sie das Modell fest, entfernen Sie Subsysteme einzeln, messen Sie, welche Entfernung den größten Leistungsabfall verursacht. Das ist Ihr Engpass — konzentrieren Sie Ihre Mühe darauf. Wie bei der Suche nach dem Engpass in einer Küche: Nehmen Sie das Rezeptregal weg und sehen Sie, wie viel langsamer alles wird, schalten Sie den Herd ab und beobachten Sie die Auswirkungen.
+**Wert von harness-Komponenten quantifizieren**: Verwenden Sie „isometrische Modellkontrolle". Halten Sie das Modell fest, entfernen Sie Subsysteme einzeln und messen Sie, welche Entfernung den größten Leistungsabfall verursacht. Der größte Abfall zeigt die Komponente mit dem höchsten Grenzbeitrag in dieser Aufgabe, nicht automatisch den Engpass. Um den Engpass zu finden, kombinieren Sie das Experiment mit Fehlerprotokollen und Attribution: unklare Aufgabe, zu wenig Kontext, nicht reproduzierbare Umgebung, fehlendes Verifikationsfeedback oder gebrochene Zustandsverwaltung.
 
 ## Die wahre Geschichte eines Teams
 
@@ -89,7 +89,7 @@ Vier Iterationen, das Modell hat sich gar nicht geändert, die Erfolgsquote stie
 - Harness = Instructions + Tools + Environment + State + Feedback. Fünf Subsysteme, wie die fünf Funktionsbereiche einer Küche — alle unverzichtbar.
 - Wenn es keine Modellgewichte sind, ist es harness. Ihr harness bestimmt, wie viel der Modelfähigkeiten realisiert wird.
 - Unter den fünf Subsystemen hat das Feedback-Subsystem normalerweise die geringste Investition und die höchste Rendite. Bringen Sie zuerst Ihre Verifizierungsbefehle in Ordnung — das Qualitätskontrollfenster ist das lohnendste Upgrade.
-- Verwenden Sie „isometrische Modellkontrolle", um den Grenznutzen jedes Subsystems zu quantifizieren — gehen Sie nicht nach Bauchgefühl.
+- Verwenden Sie „isometrische Modellkontrolle", um den Grenzbeitrag jedes Subsystems zu quantifizieren; nutzen Sie Fehlerprotokolle und Attribution, um den echten Engpass zu finden.
 - Harness verrottet wie Code. Überprüfen Sie regelmäßig und tilgen Sie harness-Schulden wie Sie technische Schulden tilgen.
 
 ## Weiterführende Literatur

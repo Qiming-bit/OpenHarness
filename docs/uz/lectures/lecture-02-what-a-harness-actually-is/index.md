@@ -33,7 +33,7 @@ Oʻzingiz bilgan baʼzi vositalarga eʼtibor qarating:
 - **Repo — bu yagona haqiqat manbai (system of record)**: Agent koʻra olmaydigan har qanday narsa, amalda mavjud emas deb hisoblanadi. OpenAI repoʼni “yagona haqiqat manbai” (system of record) sifatida qabul qiladi — barcha zarur kontekst tizimlashtirilgan fayllar va tushunarli katalog strukturasi orqali shu yerda yashashi kerak.
 - **Qoʻllanma emas, xarita bering**: OpenAI tajribasidan — `AGENTS.md` ensiklopediya emas, balki katalog sahifasi boʻlishi kerak. Taxminan 100 qator yetarli. Agar sigʻmasa, uni `docs/` katalogiga ajrating va kerak boʻlganda agent oʻqishiga imkon bering.
 - **Cheklang, mikromenejment qilmang**: Yaxshi harness yoʻriqnomalarni birma-bir sanab oʻtish oʻrniga, agentʼni cheklash uchun bajariladigan qoidalardan (executable rules) foydalanadi. OpenAI “implementatsiyani mikromenejment qilmang, oʻzgarmas qoidalarni (invariants) taʼminlang” deydi; Anthropic shuni aniqladiki, agentlar oʻz ishlarini ishonch bilan maqtashadi va buning yechimi “ishni bajaradigan odam” bilan “ishni tekshiradigan odam”ni alohida ajratishdir.
-- **Komponentlarni birma-bir olib tashlang**: Har bir harness komponentining qadrini oʻlchash uchun, ularni birma-bir olib tashlang va qaysi birining olib tashlanishi unumdorlikning eng katta pasayishiga olib kelishini koʻring. Anthropic bu usuldan foydalandi va shuni aniqladiki, modelʼlar kuchayib borgan sari baʼzi komponentlar oʻzining oʻta muhimligini yoʻqotadi — lekin doim yangilari paydo boʻladi.
+- **Komponentlarni birma-bir olib tashlang**: Har bir harness komponentining chegaraviy hissasini oʻlchash uchun, ularni birma-bir olib tashlang va qaysi birining olib tashlanishi unumdorlikning eng katta pasayishiga olib kelishini koʻring. Anthropic bu usuldan foydalandi va shuni aniqladiki, modelʼlar kuchayib borgan sari baʼzi komponentlar oʻzining oʻta muhimligini yoʻqotadi — lekin doim yangilari paydo boʻladi.
 
 ## Beshta quyi tizimli Harness modeli
 
@@ -68,7 +68,7 @@ Tekshiruv buyruqlari:
 
 Qandaydir bir quyi tizimning yoʻqligi, xuddi oshxonada qaysidir funksional hududning yoʻqligiga oʻxshaydi — siz hali ham ovqat pishirishingiz mumkin, lekin bu doim noqulay boʻladi.
 
-**Harness sifatini tashxis qilish**: **Izometrik model boshqaruvi** (modelni oʻzgarmas saqlab, harness komponentlarini birma-bir olib tashlab tekshirish usuli)dan foydalaning. Modelni oʻzgarishsiz qoldiring, quyi tizimlarni birma-bir olib tashlang, qaysi birining olib tashlanishi unumdorlikning eng katta pasayishiga olib kelishini oʻlchang. Bu sizning toʻsiq nuqtangiz (bottleneck) — asosiy eʼtiboringizni shu yerga qarating. Xuddi oshxonadagi toʻsiqni topishga oʻxshaydi: retseptlar javonini olib tashlang va ishlar qanchalik sekinlashishini koʻring, plitani oʻchiring va uning taʼsirini kuzating.
+**Harness komponentlari qiymatini oʻlchash**: **Izometrik model boshqaruvi** (modelni oʻzgarmas saqlab, harness komponentlarini birma-bir olib tashlab tekshirish usuli)dan foydalaning. Modelni oʻzgarishsiz qoldiring, quyi tizimlarni birma-bir olib tashlang va qaysi birining olib tashlanishi unumdorlikning eng katta pasayishiga olib kelishini oʻlchang. Eng katta pasayish shu vazifada chegaraviy hissasi eng yuqori komponentni koʻrsatadi, lekin bu avtomatik ravishda toʻsiq nuqtasi degani emas. Haqiqiy toʻsiqni topish uchun tajribani muvaffaqiyatsizlik jurnallari va sababga bogʻlash bilan birlashtiring: vazifa noaniqmi, kontekst yetishmayaptimi, muhit qayta tiklanmayaptimi, tekshiruv qayta aloqasi yoʻqmi yoki holat boshqaruvi uzilganmi.
 
 ## Jamoaning hayotiy misoli
 
@@ -89,7 +89,7 @@ Toʻrtta iteratsiya, model umuman oʻzgarmadi, muvaffaqiyat koʻrsatkichi 20% da
 - Harness = Yoʻriqnomalar + Vositalar + Muhit + Holat + Qayta aloqa. Beshta quyi tizim, xuddi oshxonaning beshta funksional hududiga oʻxshab — barchasi zarur.
 - Agar bu model ogʻirliklari boʻlmasa, bu harness. Sizning harnessʼingiz model imkoniyatlarining qanchalik roʻyobga chiqishini belgilaydi.
 - Beshta quyi tizim ichida qayta aloqa quyi tizimi odatda eng kam xarajat va eng yuqori daromadga (ROI) ega. Avval tekshiruv buyruqlaringizni toʻgʻri sozlang — sifat nazorati oynasi eng munosib yangilanishdir.
-- Har bir quyi tizimning hissasini oʻlchash uchun **izometrik model boshqaruvi**dan foydalaning — ichki sezgiga suyanmang.
+- Har bir quyi tizimning chegaraviy hissasini oʻlchash uchun **izometrik model boshqaruvi**dan foydalaning; haqiqiy toʻsiqni topish uchun muvaffaqiyatsizlik jurnallari va sababga bogʻlashdan foydalaning.
 - Harness xuddi kod kabi eskiradi. Uni muntazam tekshirib turing, texnik qarzni toʻlaganingiz kabi harness qarzini ham toʻlab boring.
 
 ## Qoʻshimcha oʻqish uchun

@@ -17,9 +17,9 @@ Pero detrás de estos números hay una verdad contraintuitiva.
 
 Anthropic realizó un experimento controlado. Mismo prompt ("construye un creador de juegos retro 2D"), mismo modelo (Opus 4.5). Primera ejecución: sin apoyo, sin harness — 20 minutos, 9 dólares, las funciones centrales del juego no funcionaban. Segunda ejecución: harness completo, con arquitectura de tres agentes planner + generator + evaluator — 6 horas, 200 dólares, el juego era jugable.
 
-No cambiaron el modelo. Opus 4.5 seguía siendo Opus 4.5. Lo que cambió fue la silla de montar.
+No cambiaron el modelo. Opus 4.5 seguía siendo Opus 4.5. Lo que cambió fue el equipo de monta.
 
-El artículo de OpenAI sobre harness engineering lo dice con claridad: Codex en un repositorio bien harnessed pasa de "poco fiable" a "fiable". Fíjate en el lenguaje: no es "un poco mejor", sino un cambio cualitativo. Como un caballo pura sangre: puedes montarlo sin silla, pero no llegarás lejos, no irás rápido y caerte no será una sorpresa. El harness es esa silla: **todo lo que existe en la infraestructura de ingeniería fuera de los pesos del modelo.**
+El artículo de OpenAI sobre harness engineering lo dice con claridad: Codex en un repositorio bien harnessed pasa de "poco fiable" a "fiable". Fíjate en el lenguaje: no es "un poco mejor", sino un cambio cualitativo. Como un caballo pura sangre: puedes montarlo sin equipo de monta adecuado, pero no llegarás lejos, no irás rápido y caerte no será una sorpresa. El harness es ese conjunto completo de equipo: **todo lo que existe en la infraestructura de ingeniería fuera de los pesos del modelo.**
 
 ## Dónde se atascan realmente los agentes
 
@@ -40,7 +40,7 @@ Las tareas largas que cruzan sesiones son aún peores: los descubrimientos de la
 Con estos escenarios en mente, estos conceptos ya no son jerga:
 
 - **Brecha de capacidad**: la distancia enorme entre el rendimiento del modelo en benchmarks y su rendimiento en tareas reales. Un 50-60% en SWE-bench Verified significa que casi la mitad de los issues reales no se resuelven.
-- **Harness**: todo lo que está fuera del modelo: instrucciones, herramientas, entorno, gestión de estado y feedback de verificación. Si no son pesos del modelo, es harness. Es la "silla de montar" de la que hablamos.
+- **Harness**: todo lo que está fuera del modelo: instrucciones, herramientas, entorno, gestión de estado y feedback de verificación. Si no son pesos del modelo, es harness. Es el "equipo de monta" del que hablamos.
 - **Fallo inducido por harness**: el modelo tiene capacidad suficiente, pero el entorno de ejecución tiene defectos estructurales. El experimento controlado de Anthropic ya lo demostró.
 - **Brecha de verificación**: la diferencia entre la confianza del agente en su salida y la corrección real. El agente dice "terminé" cuando no terminó. Es el modo de fallo más común.
 - **Bucle diagnóstico**: ejecutar, observar el fallo, atribuirlo a una capa concreta del harness, corregir esa capa y volver a ejecutar. Es la metodología central del harness engineering.
@@ -52,7 +52,7 @@ Principio central: **cuando algo falla, no cambies primero el modelo; revisa el 
 
 Pasos concretos:
 
-**Atribuye cada fallo a una capa específica.** No digas simplemente "el modelo es malo". Pregunta: ¿la tarea era poco clara?, ¿faltaba contexto?, ¿no había métodos de verificación? Mapea cada fallo a una de las cinco capas: especificación de tarea, provisión de contexto, entorno de ejecución, feedback de verificación y gestión de estado. Si construyes este hábito, verás cada vez menos "el modelo no es suficiente" en tus registros.
+**Atribuye cada fallo a una capa específica.** No digas simplemente "el modelo es malo". Pregunta: ¿la tarea era poco clara?, ¿faltaba contexto?, ¿no había métodos de verificación? Mapea cada fallo a una de las cinco capas: especificación de tarea, provisión de contexto, entorno de ejecución, feedback de verificación y gestión de estado. Estas son capas diagnósticas prácticas, no los seis términos del glosario anterior. Si construyes este hábito, verás cada vez menos "el modelo no es suficiente" en tus registros.
 
 **Escribe una Definition of Done explícita para cada tarea.** No digas "añade búsqueda". Di:
 ```
@@ -94,7 +94,7 @@ No cambiaron el modelo. Cambiaron el harness.
 
 ## Ideas clave
 
-- Capacidad del modelo y fiabilidad de ejecución son cosas distintas. Un pura sangre también necesita buena silla.
+- Capacidad del modelo y fiabilidad de ejecución son cosas distintas. Un pura sangre también necesita buen equipo de monta.
 - Cuando algo falla, revisa primero el harness y luego el modelo. Cambiar de modelo es la opción más cara, y muchas veces ni siquiera es un problema del modelo.
 - Cada fallo es una señal: tu harness tiene un defecto estructural. Encuéntralo y arréglalo.
 - Cinco capas defensivas: especificación de tarea, provisión de contexto, entorno de ejecución, feedback de verificación y gestión de estado. Revísalas de forma sistemática.

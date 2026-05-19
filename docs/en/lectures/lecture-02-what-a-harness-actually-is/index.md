@@ -33,7 +33,7 @@ Look at some tools you already know:
 - **The repo is the single source of truth**: Anything the agent can't see, for all practical purposes, doesn't exist. OpenAI treats the repo as the "system of record" — all necessary context must live there, through structured files and clear directory organization.
 - **Give a map, not a manual**: OpenAI's experience — `AGENTS.md` should be a directory page, not an encyclopedia. Around 100 lines is enough. If it doesn't fit, split it into the `docs/` directory and let the agent read on demand.
 - **Constrain, don't micromanage**: A good harness uses executable rules to constrain the agent, rather than enumerating instructions one by one. OpenAI says "enforce invariants, don't micromanage implementation"; Anthropic found that agents confidently praise their own work, and the solution is to separate "the person who does the work" from "the person who checks the work."
-- **Remove components one at a time**: To quantify the value of each harness component, remove them one at a time and see which removal causes the biggest performance drop. Anthropic used this method and found that as models get stronger, some components stop being critical — but new ones always emerge.
+- **Remove components one at a time**: To quantify each harness component's marginal contribution, remove them one at a time and see which removal causes the biggest performance drop. Anthropic used this method and found that as models get stronger, some components stop being critical — but new ones always emerge.
 
 ## The Five-Subsystem Harness Model
 
@@ -68,7 +68,7 @@ Verification commands:
 
 Missing any subsystem is like missing a functional area in the kitchen — you can still cook, but it's always awkward.
 
-**Diagnosing harness quality**: Use "isometric model control." Keep the model fixed, remove subsystems one at a time, measure which removal causes the biggest performance drop. That's your bottleneck — focus your effort there. Like finding the bottleneck in a kitchen: take away the recipe shelf and see how much slower things get, shut off the stove and see the impact.
+**Quantifying harness component value**: Use "isometric model control." Keep the model fixed, remove subsystems one at a time, and measure which removal causes the biggest performance drop. The largest drop identifies the component with the highest marginal contribution in that task, not automatically the bottleneck. To locate the bottleneck, combine this experiment with failure logs and attribution: unclear task, insufficient context, unreproducible environment, missing verification feedback, or broken state management.
 
 ## A Team's Real Story
 
@@ -89,7 +89,7 @@ Four iterations, the model didn't change at all, success rate went from 20% to n
 - Harness = Instructions + Tools + Environment + State + Feedback. Five subsystems, like a kitchen's five functional areas — all essential.
 - If it's not model weights, it's harness. Your harness determines how much model capability gets realized.
 - Among the five subsystems, the feedback subsystem usually has the lowest investment and highest return. Get your verification commands right first — the quality check window is the most worthwhile upgrade.
-- Use "isometric model control" to quantify each subsystem's marginal contribution — don't go by gut feeling.
+- Use "isometric model control" to quantify each subsystem's marginal contribution — don't go by gut feeling; use failure logs and attribution to locate the real bottleneck.
 - Harness rots like code does. Audit regularly, pay down harness debt like you pay down technical debt.
 
 ## Further Reading

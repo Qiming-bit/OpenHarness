@@ -17,9 +17,9 @@ Derrière ces chiffres se cache pourtant une vérité contre-intuitive.
 
 Anthropic a mené une expérience contrôlée. Même prompt (« construire un éditeur de jeux rétro 2D »), même modèle (Opus 4.5). Premier essai : nu, sans support — 20 minutes, 9 dollars, les fonctionnalités centrales ne fonctionnent pas. Deuxième essai : harness complet (architecture planner + generator + evaluator) — 6 heures, 200 dollars, le jeu est jouable.
 
-Ils n'ont pas changé de modèle. Opus 4.5 restait Opus 4.5. Ce qui a changé, c'est la selle.
+Ils n'ont pas changé de modèle. Opus 4.5 restait Opus 4.5. Ce qui a changé, c'est le harnachement.
 
-L'article d'OpenAI sur le harness engineering le formule simplement : Codex dans un dépôt bien harnessed passe de « peu fiable » à « fiable ». Pas « un peu mieux », mais un changement qualitatif. Comme un pur-sang : vous pouvez le monter sans selle, mais vous n'irez ni loin ni vite, et tomber n'a rien d'étonnant. Le harness est cette selle : **tout ce qui, dans l'infrastructure d'ingénierie, se trouve hors des poids du modèle.**
+L'article d'OpenAI sur le harness engineering le formule simplement : Codex dans un dépôt bien harnessed passe de « peu fiable » à « fiable ». Pas « un peu mieux », mais un changement qualitatif. Comme un pur-sang : vous pouvez le monter sans harnachement adapté, mais vous n'irez ni loin ni vite, et tomber n'a rien d'étonnant. Le harness est cet ensemble de harnachement : **tout ce qui, dans l'infrastructure d'ingénierie, se trouve hors des poids du modèle.**
 
 ## Où les agents se bloquent vraiment
 
@@ -48,7 +48,7 @@ Les tâches longues sur plusieurs sessions sont encore pires : les découvertes 
 
 Principe central : **quand ça échoue, ne changez pas d'abord de modèle — vérifiez le harness.** Si le même modèle réussit sur des tâches similaires bien structurées, supposez un problème de harness. Comme une voiture en panne : on vérifie d'abord l'essence avant d'accuser le moteur.
 
-**Attribuer chaque échec à une couche précise.** Ne dites pas « le modèle est nul ». Demandez : la tâche était-elle floue ? Le contexte insuffisant ? La vérification absente ? Reliez chaque échec à une des cinq couches : spécification, contexte, environnement, feedback de vérification, état.
+**Attribuer chaque échec à une couche précise.** Ne dites pas « le modèle est nul ». Demandez : la tâche était-elle floue ? Le contexte insuffisant ? La vérification absente ? Reliez chaque échec à une des cinq couches : spécification, contexte, environnement, feedback de vérification, état. Ce sont des couches de diagnostic pratiques, pas les six termes du glossaire ci-dessus.
 
 **Écrire une Definition of Done explicite.**
 ```

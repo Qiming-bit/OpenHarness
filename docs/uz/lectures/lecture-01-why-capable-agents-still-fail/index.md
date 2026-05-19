@@ -17,9 +17,9 @@ Ammo bu raqamlar ortida intuitsiyaga zid bir haqiqat yashiringan.
 
 Anthropic nazorat ostida tajriba oʻtkazdi. Bir xil prompt (“2D retro oʻyinlar yaratish dasturini qur”), bir xil model (Opus 4.5). Birinchi sinov — hech qanday qoʻshimcha vositasiz: 20 daqiqa, 9 dollar; oʻyinning asosiy funksiyalari umuman ishlamadi. Ikkinchi sinov — toʻliq harness bilan (planner + generator + evaluator — uch agentli arxitektura): 6 soat, 200 dollar; oʻyin oʻynaladigan holatda chiqdi.
 
-Ular modelni oʻzgartirmadi. Opus 4.5 hamon Opus 4.5 edi. Oʻzgargan narsa — egar.
+Ular modelni oʻzgartirmadi. Opus 4.5 hamon Opus 4.5 edi. Oʻzgargan narsa — ot anjomlari.
 
-OpenAIʼning 2025-yilgi harness engineering maqolasi buni ochiq aytadi: yaxshi tuzilgan harnessʼga ega repozitoriyadagi Codex “ishonchsiz”dan “ishonchli”ga oʻtadi. Eʼtibor bering — “biroz yaxshi” emas, sifat jihatidan tubdan boshqacha. Bu xuddi zotli otga oʻxshaydi: egarsiz minib boʻladi, lekin uzoqqa bormaysiz, tez ham yura olmaysiz, yiqilishingiz esa hech kimni ajablantirmaydi. Harness — aynan oʻsha egar; **model ogʻirliklaridan tashqaridagi barcha muhandislik infratuzilmasi.**
+OpenAIʼning 2025-yilgi harness engineering maqolasi buni ochiq aytadi: yaxshi tuzilgan harnessʼga ega repozitoriyadagi Codex “ishonchsiz”dan “ishonchli”ga oʻtadi. Eʼtibor bering — “biroz yaxshi” emas, sifat jihatidan tubdan boshqacha. Bu xuddi zotli otga oʻxshaydi: mos ot anjomlarisiz minib boʻladi, lekin uzoqqa bormaysiz, tez ham yura olmaysiz, yiqilishingiz esa hech kimni ajablantirmaydi. Harness — aynan oʻsha toʻliq ot anjomlari; **model ogʻirliklaridan tashqaridagi barcha muhandislik infratuzilmasi.**
 
 ## Agentlar aslida qayerda tiqilib qoladi
 
@@ -40,7 +40,7 @@ Bir necha sessiyaga choʻzilgan uzun vazifalar yana ham yomonroq — oldingi ses
 Bu ssenariylarni nazarda tutsak, quyidagi atamalar endi shunchaki jargon emas — har biri aniq muvaffaqiyatsizlik turini nomlaydi:
 
 - **Capability Gap (Imkoniyatlar tafovuti)**: Modelning benchmark natijalari va haqiqiy vazifalarda koʻrsatadigan natijalari oʻrtasidagi katta tafovut. SWE-bench Verifiedʼda 50–60% muvaffaqiyat darajasi haqiqiy muammolarning deyarli yarmi hal qilinmasligini bildiradi.
-- **Harness**: Modeldan tashqaridagi hamma narsa — yoʻriqnomalar, vositalar, muhit, holat boshqaruvi, tekshiruv qayta aloqasi. Agar bu model ogʻirliklari boʻlmasa — bu harness. Biz “egar” deb atayotgan narsamiz.
+- **Harness**: Modeldan tashqaridagi hamma narsa — yoʻriqnomalar, vositalar, muhit, holat boshqaruvi, tekshiruv qayta aloqasi. Agar bu model ogʻirliklari boʻlmasa — bu harness. Biz “ot anjomlari” deb atayotgan narsamiz.
 - **Harness-Induced Failure (Harness keltirib chiqargan muvaffaqiyatsizlik)**: Modelda yetarli imkoniyat mavjud, ammo bajarilish muhitida strukturaviy nuqsonlar bor. Anthropicʼning nazoratli tajribasi buni allaqachon isbotladi.
 - **Verification Gap (Tekshiruv tafovuti)**: Agentning oʻz natijasiga ishonchi va haqiqiy toʻgʻrilik oʻrtasidagi farq. Agent “men tugatdim” deydi, aslida tugatmagan — bu eng keng tarqalgan muvaffaqiyatsizlik turi.
 - **Diagnostic Loop (Diagnostik sikl)**: Bajarish, muvaffaqiyatsizlikni kuzatish, uni maʼlum bir harness qatlamiga bogʻlash, oʻsha qatlamni tuzatish, qaytadan bajarish. Bu — harness muhandisligining asosiy metodikasi.
@@ -52,7 +52,7 @@ Asosiy tamoyil: **Yiqilish boʻlganda, modelni almashtirishga shoshilmang — ha
 
 Aniq qadamlar:
 
-**Har bir muvaffaqiyatsizlikni aniq qatlamga bogʻlang.** Shunchaki “model yomon” demang. Oʻzingizdan soʻrang: vazifa noaniqmidi? Kontekst yetarli emasmidi? Tekshiruv usullari yoʻqmidi? Har bir muvaffaqiyatsizlikni beshta muvaffaqiyatsizlik qatlamlaridan biriga (vazifa spetsifikatsiyasi, kontekst taʼminoti, bajarilish muhiti, tekshiruv qayta aloqasi, holat boshqaruvi) bogʻlang. Shu odatni shakllantirsangiz, “model yetarli emas” iborasi loglaringizda kamayib boradi.
+**Har bir muvaffaqiyatsizlikni aniq qatlamga bogʻlang.** Shunchaki “model yomon” demang. Oʻzingizdan soʻrang: vazifa noaniqmidi? Kontekst yetarli emasmidi? Tekshiruv usullari yoʻqmidi? Har bir muvaffaqiyatsizlikni beshta himoya qatlamidan biriga bogʻlang: vazifa spetsifikatsiyasi, kontekst taʼminoti, bajarilish muhiti, tekshiruv qayta aloqasi, holat boshqaruvi. Bular amaliy diagnostika qatlamlari, yuqoridagi oltita glossariy atamasi emas. Shu odatni shakllantirsangiz, “model yetarli emas” iborasi loglaringizda kamayib boradi.
 
 **Har bir vazifa uchun aniq Definition of Done (bajarilganlik mezonlari) yozing.** “Qidiruv funksiyasini qoʻsh” demang. Mana shunday yozing:
 
@@ -95,7 +95,7 @@ Ular modelni oʻzgartirmadi. Ular harnessʼni oʻzgartirdi.
 
 ## Asosiy xulosalar
 
-- Modelning imkoniyati va bajarilishning ishonchliligi — bular boshqa-boshqa narsalar. Zotli ot ham yaxshi egarni talab qiladi.
+- Modelning imkoniyati va bajarilishning ishonchliligi — bular boshqa-boshqa narsalar. Zotli ot ham yaxshi ot anjomlarini talab qiladi.
 - Yiqilish boʻlganda — avval harnessʼni, keyin modelni tekshiring. Modelni almashtirish — eng qimmat variant — va koʻpincha bu model muammosi ham emas.
 - Har bir muvaffaqiyatsizlik — signal: harnessʼingizda strukturaviy nuqson bor. Toping, tuzating.
 - Beshta himoya qatlami: vazifa spetsifikatsiyasi, kontekst taʼminoti, bajarilish muhiti, tekshiruv qayta aloqasi, holat boshqaruvi. Doktor eng keng tarqalgan sabablarni avval inkor qilganidek, ularni tizimli tekshiring.
