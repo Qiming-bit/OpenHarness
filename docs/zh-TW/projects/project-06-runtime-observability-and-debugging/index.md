@@ -15,8 +15,10 @@
 
 | 目錄 | 內容 | 怎麼用 / 比較什麼 |
 |------|------|------|
-| [`starter/`](https://github.com/walkinglabs/learn-harness-engineering/tree/main/projects/project-06/starter) | 產品功能基本完整，但 harness 表面刻意削弱（只有基礎 [`AGENTS.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/starter/AGENTS.md)，沒有 `feature_list.json` / `session-handoff.md` / `clean-state-checklist.md`，也沒有 benchmark/cleanup 腳本）。 | 手動記錄弱 harness 基線行為（錯誤定位速度、是否過早宣告完成等）。 |
+| [`starter/`](https://github.com/walkinglabs/learn-harness-engineering/tree/main/projects/project-06/starter) | 產品功能基本完整，但 harness 表面刻意削弱（只有基礎 [`AGENTS.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/starter/AGENTS.md)，沒有 `feature_list.json` / `session-handoff.md` / `clean-state-checklist.md`，也沒有 benchmark/cleanup 腳本）。 | 起始版本刻意不包含基準測試腳本。手動記錄弱 harness 基線行為（錯誤定位速度、是否過早宣告完成等）。 |
 | [`solution/`](https://github.com/walkinglabs/learn-harness-engineering/tree/main/projects/project-06/solution) | 最大化 harness：[`AGENTS.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/solution/AGENTS.md)、[`CLAUDE.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/solution/CLAUDE.md)、[`feature_list.json`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/solution/feature_list.json)、[`init.sh`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/solution/init.sh)、[`session-handoff.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/solution/session-handoff.md)、[`clean-state-checklist.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-06/solution/clean-state-checklist.md)、品質/評估文檔、benchmark 與 cleanup 腳本。 | 在 [`projects/project-06/solution/`](https://github.com/walkinglabs/learn-harness-engineering/tree/main/projects/project-06/solution) 下跑 `./scripts/benchmark.sh` 與 `./scripts/cleanup-scanner.sh`，再對照品質文檔證據。 |
+
+與前幾個專案不同，這份結業起始版本在產品功能上基本完整，主要缺口在於應用外圍的 harness 運作機制。
 
 ## 用什麼工具
 
@@ -26,6 +28,10 @@
 - 品質文件範本（`docs/zh-TW/resources/templates/quality-document.md`）
 - 評估量表（`docs/zh-TW/resources/templates/evaluator-rubric.md`）
 - 前五個專案積累的所有 harness 組件
+
+## Harness 機制
+
+完整 harness：所有機制 + 可觀測性 + 消融實驗
 
 ## 具體步驟
 

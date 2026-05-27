@@ -1,23 +1,23 @@
-# OpenAI 高級 SOP
+# OpenAI 進階 SOP
 
-這些 SOP 把文章裡的工作方式翻成可以直接參考、執行、改造的操作手冊。
+這些 SOP 把文章中的運作方式整理成可直接參考或調整的操作手冊。
 
 ## 包含哪些 SOP
 
 - [`layered-domain-architecture.md`](./layered-domain-architecture.md)：
-  搭建顯式分層與跨領域邊界
+  建立明確分層與跨領域邊界
 - [`encode-knowledge-into-repo.md`](./encode-knowledge-into-repo.md)：
-  把聊天、外部文件、腦內知識變成 repo-local 文件
+  把聊天、文件與記憶中的知識移進儲存庫內的文件
 - [`observability-feedback-loop.md`](./observability-feedback-loop.md)：
-  給 agent 提供 logs、metrics、traces 與可重複的除錯閉環
+  提供代理 logs、metrics、traces，以及可重複的除錯循環
 - [`chrome-devtools-validation-loop.md`](./chrome-devtools-validation-loop.md)：
-  用瀏覽器自動化和快照反覆驗證 UI，直到 clean
+  使用瀏覽器自動化與快照反覆驗證 UI 行為，直到流程乾淨
 
-## 怎麼用
+## 怎麼使用
 
-1. 先選和你目前瓶頸最相符的 SOP。
-2. 按檢查清單補齊缺失工件或工具。
-3. 把得到的規則編碼回 `repo-template/` 裡的文件。
-4. 把反覆出現的 review 評論升級成檢查、腳本或 guardrail。
+1. 選擇最符合你目前瓶頸的 SOP。
+2. 依照檢查清單補齊缺少的工件或工具。
+3. 把得到的規則編碼回你複製的 `repo-template/` 文件。
+4. 把反覆出現的審查意見轉成檢查、腳本或 guardrail。
 
-這些 SOP 的目的是讓 harness 更可讀、更可執行、更可複用，供你直接參考、執行、改造，而非機械照抄。
+這些 SOP 不適合機械照抄。它們的用途，是讓執行環境更容易理解、落實與重複使用。

@@ -20,6 +20,8 @@
 | [`starter/`](https://github.com/walkinglabs/learn-harness-engineering/tree/main/projects/project-04/starter) | 以 Project 03 程式碼為基礎，但診斷能力較弱；存在一個種子缺陷，可能導致大型文件 chunking/索引失敗；也沒有架構檢查腳本。 | 沒有執行時期訊號時，定位根本原因需要多久、改動是否擴散。 |
 | [`solution/`](https://github.com/walkinglabs/learn-harness-engineering/tree/main/projects/project-04/solution) | 結構化 logger、架構邊界文件與腳本、修復 chunking/索引邏輯，並補齊 [`clean-state-checklist.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-04/solution/clean-state-checklist.md)。 | 有日誌與邊界檢查後，修復是否更快、更可控、可復現。 |
 
+可供檢閱的具體檔案為 [`projects/project-04/solution/src/services/logger.ts`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-04/solution/src/services/logger.ts)、[`projects/project-04/solution/scripts/check-architecture.sh`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-04/solution/scripts/check-architecture.sh)、[`projects/project-04/solution/docs/ARCHITECTURE.md`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-04/solution/docs/ARCHITECTURE.md) 和 [`projects/project-04/solution/src/services/indexing-service.ts`](https://github.com/walkinglabs/learn-harness-engineering/blob/main/projects/project-04/solution/src/services/indexing-service.ts)。
+
 ## 用什麼工具
 
 - Claude Code 或 Codex
@@ -27,6 +29,10 @@
 - Node.js + Electron
 - 日誌庫（如 `electron-log` 或簡單的 console 封裝）
 - 結構化檢查工具（ESLint 自訂規則、guard 腳本、或測試）
+
+## Harness 機制
+
+執行時期回饋 + 範圍控制 + 漸進式索引
 
 ## 具體步驟
 

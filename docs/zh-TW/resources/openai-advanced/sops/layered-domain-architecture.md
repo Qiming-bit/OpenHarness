@@ -1,47 +1,47 @@
 # SOP：分層領域架構
 
-當 agent 反覆跨層亂連、在不同層重複邏輯、或者幾輪工作階段後程式碼越來越難審時，就用這份 SOP。
+當代理持續破壞邊界、在不同層重複邏輯，或幾輪工作階段後產出的程式碼變得難以審查時，就使用這份 SOP。
 
 ## 目標
 
-把領域邊界寫清楚、立起來、能執行，讓 agent 在高速度下也不至於悄悄把結構做爛。
+把領域邊界寫得足夠明確，讓代理能快速推進，同時不會悄悄破壞結構。
 
 ## 目標模型
 
-在一個業務領域內部，優先使用這條單向流：
+在單一業務領域內，優先採用這條單向流程：
 
 `Types -> Config -> Repo -> Service -> Runtime -> UI`
 
-跨領域關注點透過明確的 provider 或 adapter 進入。共享 utils 保持在領域之外，不能慢慢長成業務邏輯垃圾場。
+橫切關注點應透過明確的 provider 或 adapter 進入。共用 utils 應留在領域之外，不要累積領域邏輯。
 
-## 建設檢查清單
+## 建置檢查清單
 
-- 在 `ARCHITECTURE.md` 裡列清目前 domains。
-- 在 `ARCHITECTURE.md` 裡寫清允許的依賴方向。
-- 記錄 auth、telemetry、外部 API 等 cross-cutting interface。
-- 為目前最難處理的邊界違規寫一條短說明。
-- 決定哪些規則應該升級成 lint、test 或 script。
+- 在 `ARCHITECTURE.md` 中定義目前的領域。
+- 在 `ARCHITECTURE.md` 中寫出允許的相依方向。
+- 記錄 auth、telemetry、外部 API 等橫切介面。
+- 針對目前最難處理的邊界違規，補上一則簡短說明。
+- 決定哪些規則要用 lint、測試或腳本做機械化約束。
 
 ## 執行 SOP
 
-1. 先給程式碼庫畫 domain map，再談實現風格。
-2. 對每個 domain，明確允許的 layer sequence。
-3. 找出所有橫切關注點，並把它們改走 provider 或 adapter。
-4. 把含糊的 shared logic 重新放回所屬 domain，或抽成真正通用的 utils。
+1. 在調整實作風格前，先把程式碼庫畫分成各個領域。
+2. 針對每個領域，定義允許的層級順序。
+3. 找出所有橫切關注點，並把它們導向 provider 或 adapter。
+4. 把界線不明的共用邏輯移回負責的領域，或改成真正通用的 utils。
 5. 把規則寫進 `ARCHITECTURE.md`。
-6. 先為代價最高的一類違規補一個可執行 guardrail。
-7. 改完後更新品質評分。
+6. 針對代價最高的違規類型，加入一條可執行的護欄。
+7. 完成後更新品質評分。
 
 ## 完成定義
 
-- 一個全新的 agent 能判斷某個改動應該落在哪一層。
-- UI 不再直接連 repo 或外部副作用。
-- 橫切能力都有明確入口。
-- 至少一條重要邊界已經被機械執行。
+- 新接手的代理能判斷一個變更屬於哪一層。
+- `UI` 程式碼不再直接觸及 repo 或外部副作用。
+- 橫切關注點都有具名入口。
+- 至少有一條重要邊界已透過機械方式強制執行。
 
-## 需要同步更新的儲存庫工件
+## 需要更新的儲存庫工件
 
 - `ARCHITECTURE.md`
 - `docs/QUALITY_SCORE.md`
-- 如果設計理由變了，更新 `docs/design-docs/`
-- `docs/PLANS.md` 或目前 active execution plan
+- 設計理由改變時更新 `docs/design-docs/`
+- `docs/PLANS.md` 或目前啟用中的執行計畫

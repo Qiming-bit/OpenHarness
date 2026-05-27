@@ -1,55 +1,53 @@
 # AGENTS.md
 
-這個儲存庫面向長時執行的 coding-agent 工作流。保持這個檔案簡短，把它當成“唯一事實來源”文件的入口和路由層，而不是一個不斷膨脹的大說明書。
+這個儲存庫針對長時間執行的程式設計代理工作做了最佳化。保持這個檔案簡短。把它當成通往系統記錄文件的路由層，不要把所有指令都堆在這裡。
 
 ## 開工流程
 
-改程式碼前先做這些事：
+改動程式碼前，先做這些事：
 
 1. 用 `pwd` 確認儲存庫根目錄。
-2. 讀取 `ARCHITECTURE.md`，理解目前系統地圖和硬性依賴規則。
-3. 讀取 `docs/QUALITY_SCORE.md`，先知道最弱的產品領域和架構層。
-4. 讀取 `docs/PLANS.md`，再打開目前要執行的 active plan。
-5. 讀取相關的 `docs/product-specs/` 規格文件。
-6. 跑這個儲存庫約定的 bootstrap 與驗證路徑。
-7. 如果基礎驗證先失敗，先修 baseline，再加新範圍。
+2. 讀取 `ARCHITECTURE.md`，了解目前的系統地圖與硬性相依規則。
+3. 讀取 `docs/QUALITY_SCORE.md`，確認目前最弱的領域或分層。
+4. 讀取 `docs/PLANS.md`，再打開你目前依循的進行中計畫。
+5. 讀取 `docs/product-specs/` 內相關的產品規格。
+6. 執行這個儲存庫的標準啟動與驗證流程。
+7. 如果基線驗證失敗，先修復基線，再新增範圍。
 
 ## 路由地圖
 
-- `ARCHITECTURE.md`：領域地圖、分層模型、依賴規則
+- `ARCHITECTURE.md`：領域地圖、分層模型、相依規則
 - `docs/design-docs/index.md`：設計決策與核心信念
 - `docs/product-specs/index.md`：目前產品行為與驗收目標
-- `docs/PLANS.md`：計畫生命週期與執行計畫規則
-- `docs/QUALITY_SCORE.md`：產品領域與架構層健康度
-- `docs/RELIABILITY.md`：執行信號、benchmark、重啟要求
-- `docs/SECURITY.md`：密鑰、沙箱、資料和外部動作規則
-- `docs/FRONTEND.md`：UI 約束、設計系統規則、無障礙檢查
+- `docs/PLANS.md`：計畫生命週期與執行計畫政策
+- `docs/QUALITY_SCORE.md`：產品領域與分層健康度
+- `docs/RELIABILITY.md`：執行訊號、基準與重新啟動要求
+- `docs/SECURITY.md`：密鑰、沙箱、資料與外部動作規則
+- `docs/FRONTEND.md`：UI 約束、設計系統規則與無障礙檢查
 
 ## 工作約定
 
-- 一次只圍繞一個有邊界的計畫或功能切片工作。
-- 不能只靠讀程式碼就宣佈完成，必須有可執行證據。
-- 只要改了行為，就同步更新對應的產品、計畫或可靠性文件。
-- 如果某類 review feedback 反覆出現，把它升級成機械規則、檢查或 linter，不要一直在聊天裡重複解釋。
-- 生成物放進 `docs/generated/`，外部 reference 放進 `docs/references/`。
-- 需要更多細節時，優先補小而新的文件，而不是繼續把這個檔案寫長。
+- 一次只處理一個有邊界的計畫或功能切片。
+- 不要只靠閱讀程式碼就判定完成，必須有可執行的證據。
+- 如果你改動了行為，就在同一個工作階段更新對應的產品、計畫或可靠性文件。
+- 如果某類 review feedback 反覆出現，就把它升級成機械規則、檢查或 linter，不要在聊天裡重複解釋。
+- 把產生物放在 `docs/generated/`，把來源參考資料放在 `docs/references/`。
+- 優先新增小而且保持最新的文件，不要持續擴大這個檔案。
 
 ## 完成定義
 
-一個改動只有在以下條件都滿足時才算完成：
+只有在下列條件都成立時，改動才算完成：
 
-- 目標行為已實現
-- 要求的驗證真的跑過
-- 證據已經掛到相關 plan 或品質文件裡
-- 受影響的文件仍然是最新的
-- 儲存庫能按標準啟動路徑乾淨重啟
+- 目標行為已經實作
+- 要求的驗證已實際執行
+- 證據已連結到相關計畫或品質文件
+- 受影響的文件仍是最新狀態
+- 儲存庫可依標準啟動路徑乾淨重啟
 
-## 收尾
+## 工作階段結束前
 
-結束工作階段前：
-
-1. 更新目前 active execution plan。
-2. 如果產品領域或架構層有明顯變化，更新 `docs/QUALITY_SCORE.md`。
-3. 如果有延期處理的債務，記到 `docs/exec-plans/tech-debt-tracker.md`。
-4. 已完成的計畫及時移到 `docs/exec-plans/completed/`。
-5. 保證儲存庫可重啟，並留下明確的下一步動作。
+1. 更新目前的進行中執行計畫。
+2. 如果任何領域或分層有明顯變化，更新 `docs/QUALITY_SCORE.md`。
+3. 如果你延後處理新的技術債，記錄到 `docs/exec-plans/tech-debt-tracker.md`。
+4. 在適合的時候，把已完成的計畫移到 `docs/exec-plans/completed/`。
+5. 讓儲存庫維持可重新啟動狀態，並留下明確的下一步。

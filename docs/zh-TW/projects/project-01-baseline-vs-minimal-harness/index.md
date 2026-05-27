@@ -29,6 +29,10 @@
 - Node.js + Electron（專案技術堆疊）
 - 一個計時器（記錄每次執行時期間）
 
+## Harness 機制
+
+最小 harness：`AGENTS.md` + `init.sh` + `feature_list.json`
+
 ## 具體步驟
 
 ### 準備工作

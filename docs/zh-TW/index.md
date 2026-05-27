@@ -58,7 +58,7 @@ graph TD
   <li>用明確的規則和邊界<strong>約束代理的行為</strong>。</li>
   <li>在跨工作階段的長時任務中<strong>保持脈絡連續性</strong>。</li>
   <li><strong>防止代理提前宣告</strong>任務完成。</li>
-  <li>讓代理學會透過完整的流水線測試來<strong>驗證自己的工作</strong>。</li>
+  <li>讓代理透過完整的流水線測試及自我反思來<strong>驗證工作成果</strong>。</li>
   <li>讓代理的執行過程<strong>可觀測、可除錯</strong>。</li>
 </ul>
 
@@ -69,5 +69,5 @@ graph TD
 <ul class="index-list">
   <li><a href="./lectures/lecture-01-why-capable-agents-still-fail/">L01. 模型能力強，不等於執行可靠</a>：從理論開始。</li>
   <li><a href="./projects/project-01-baseline-vs-minimal-harness/">P01. 提示詞 vs 規則驅動</a>：完成你的第一個對比實戰任務。</li>
-  <li><a href="./resources/templates/">繁體中文範本</a>：取得最小 harness 範本包（AGENTS.md、feature_list.json 等），直接用於你的專案。</li>
+  <li><a href="./resources/templates/">繁體中文範本</a>：取得最小 harness 範本包（AGENTS.md、feature_list.json、claude-progress.md 等），直接用於你的專案。</li>
 </ul>
