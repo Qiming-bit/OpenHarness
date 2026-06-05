@@ -1,27 +1,29 @@
-# claude-progress.md -- Session Log
+# claude-progress.md -- 会话日志
 
-## Project 01: Baseline vs Minimal Harness
+## Project 01：Baseline vs Minimal Harness
 
 ### Session 1 -- 2026-03-30
 
-**Duration**: ~45 minutes
-**Goal**: Establish baseline Electron app with proper harness
+**耗时**：约 45 分钟  
+**目标**：建立带有合适 harness 的 baseline Electron 应用
 
-**What was done**:
-- Verified Electron window launches at 1200x800 with correct webPreferences
-- Confirmed document list panel renders with empty state message
-- Confirmed question panel accepts input and submits via IPC
-- Verified PersistenceService creates data directories under userData
-- Updated feature_list.json with all 4 features at status "pass"
-- Wrote AGENTS.md with startup rules and layer boundaries
-- Wrote docs/ARCHITECTURE.md describing Electron layer structure
-- Wrote docs/PRODUCT.md describing knowledge base requirements
+**已完成**：
 
-**Decisions**:
-- Used constructor injection for PersistenceService to keep services testable
-- Kept all IPC channel names in a single const object in types.ts
-- Window title set to "Knowledge Base" for consistency
+- 验证 Electron 窗口以 1200x800 启动，并使用正确的 `webPreferences`
+- 确认文档列表面板渲染空状态提示
+- 确认问答面板可以接收输入，并通过 IPC 提交
+- 验证 `PersistenceService` 会在 `userData` 下创建数据目录
+- 将 `feature_list.json` 中 4 个功能全部更新为 `"pass"`
+- 编写 `AGENTS.md`，说明启动规则和层边界
+- 编写 `docs/ARCHITECTURE.md`，说明 Electron 分层结构
+- 编写 `docs/PRODUCT.md`，说明知识库需求
 
-**Issues**: None
+**决策**：
 
-**Next session**: Proceed to Project 02 to add import, detail view, and persistence features.
+- 使用构造函数注入 `PersistenceService`，保持 services 可测试
+- 将所有 IPC channel 名称集中放在 `types.ts` 的一个常量对象中
+- 窗口标题统一设为 `"Knowledge Base"`
+
+**问题**：无
+
+**下一次会话**：进入 Project 02，添加导入、详情视图和持久化功能。

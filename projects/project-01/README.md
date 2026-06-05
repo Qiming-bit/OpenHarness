@@ -1,62 +1,63 @@
-# Project 01: Baseline vs Minimal Harness
+# Project 01：Baseline vs Minimal Harness
 
-Compare how a weak harness (prompt only) and an explicit harness (rule files plus verification mechanisms) affect the completion rate of AI coding-agent tasks.
+比较弱 harness（只靠 prompt）和显式 harness（规则文件 + 验证机制）对 AI 编码代理任务完成率的影响。
 
-## Directory Guide
+## 目录说明
 
-| Directory | Meaning |
+| 目录 | 含义 |
 |------|------|
-| `starter/` | **Starting point**: only a vague `task-prompt.md`, with no AGENTS.md and no feature_list.json. This is the "weak harness" version you give to the agent. |
-| `solution/` | **Reference implementation**: the same application code, but with complete harness files (AGENTS.md, feature_list.json, init.sh, claude-progress.md). This is the "explicit harness" version. |
+| `starter/` | **起点**：只有一个模糊的 `task-prompt.md`，没有 `AGENTS.md`，也没有 `feature_list.json`。这是给 agent 的「弱 harness」版本。 |
+| `solution/` | **参考实现**：相同的应用代码，但配备完整的 harness 文件（`AGENTS.md`、`feature_list.json`、`init.sh`、`claude-progress.md`）。这是「显式 harness」版本。 |
 
-## How to Use
+## 使用方法
 
 ```sh
-# 1. Run the agent task once with starter (weak harness)
+# 1. 用 starter（弱 harness）跑一次 agent 任务
 cd starter
 npm install
-# Give the contents of task-prompt.md as the prompt to Claude Code / Codex
-# Ask the agent to complete: window startup, document list, QA panel, data directory
-# Do not give the agent solution files during this run.
+# 把 task-prompt.md 的内容作为 prompt 给 Claude Code / Codex
+# 让 agent 尝试完成：窗口启动、文档列表、问答面板、数据目录
+# 本轮不要把 solution 文件提供给 agent。
 
-# 2. Run the same task with solution (explicit harness)
+# 2. 用 solution（显式 harness）跑同一个任务
 cd ../solution
 npm install
-# Ask the agent to read AGENTS.md, init.sh, feature_list.json, and claude-progress.md
-# before touching code. The product code should already satisfy the same four features.
+# 让 agent 在改代码前先阅读 AGENTS.md、init.sh、feature_list.json 和 claude-progress.md
+# 产品代码本身应该已经满足相同的四个功能。
 
-# 3. Compare the two results
-# - Was the task completed?
-# - How many retries were needed?
-# - Did the agent claim "done" too early?
+# 3. 对比两次结果
+# - 任务是否完成？
+# - 需要重试几次？
+# - agent 是否过早声称「完成」？
 ```
 
-## Exact Task Contract
+## 明确任务契约
 
-The starter prompt is intentionally vague (`starter/task-prompt.md` contains only
-"Build an Electron app that can show documents and answer questions."). Use the
-solution harness to make that vague request concrete:
+`starter` 的 prompt 是刻意模糊的：`starter/task-prompt.md` 只包含一句话：
 
-| Feature | Starter evidence to inspect | Solution evidence to compare |
+```text
+Build an Electron app that can show documents and answer questions.
+```
+
+使用 `solution` 中的 harness，把这个模糊请求具体化：
+
+| 功能 | 在 starter 中检查的证据 | 在 solution 中对比的证据 |
 |------|------|------|
-| Window launch | `src/main/main.ts`, `src/preload/preload.ts` | `feature_list.json` item `window-launch` |
-| Document list panel | `src/renderer/components/DocumentList.tsx` | `feature_list.json` item `document-list` |
-| Question panel | `src/renderer/components/QuestionPanel.tsx` | `feature_list.json` item `question-panel` |
-| Data directory | `src/services/persistence-service.ts` | `feature_list.json` item `data-directory` |
+| 窗口启动 | `src/main/main.ts`、`src/preload/preload.ts` | `feature_list.json` 中的 `window-launch` |
+| 文档列表面板 | `src/renderer/components/DocumentList.tsx` | `feature_list.json` 中的 `document-list` |
+| 问答面板 | `src/renderer/components/QuestionPanel.tsx` | `feature_list.json` 中的 `question-panel` |
+| 数据目录 | `src/services/persistence-service.ts` | `feature_list.json` 中的 `data-directory` |
 
-This project is an experiment, not a normal "fill in the starter until it equals
-solution" assignment. The learning outcome is the measured difference between a
-prompt-only run and a run that starts from explicit repo rules and verification
-artifacts.
+这个项目是一个实验，不是普通的「把 starter 补到和 solution 一样」的作业。学习目标是测量只靠 prompt 的运行方式，与从明确仓库规则和验证产物开始的运行方式之间的差异。
 
-## Features Covered
+## 覆盖功能
 
-- Electron window starts successfully
-- UI shows the document-list area
-- UI shows the QA panel
-- App creates and uses a local data directory
+- Electron 窗口成功启动
+- UI 显示文档列表区域
+- UI 显示问答面板
+- 应用创建并使用本地数据目录
 
-## Related Lectures
+## 相关讲义
 
 - [Lecture 01: Why Capable Agents Still Fail](../../docs/en/lectures/lecture-01-why-capable-agents-still-fail/index.md)
 - [Lecture 02: What a Harness Actually Is](../../docs/en/lectures/lecture-02-what-a-harness-actually-is/index.md)

@@ -1,3 +1,3 @@
-# Task
+# 任务
 
-Build an Electron app that can show documents and answer questions.
+构建一个 Electron 应用，能够展示文档并回答问题。

@@ -1,62 +1,66 @@
-# AGENTS.md -- Project 01: Baseline vs Minimal Harness
+# AGENTS.md -- Project 01：Baseline vs Minimal Harness
 
-## Startup Rules
+## 启动规则
 
-Before writing any code, complete these steps in order:
+写任何代码前，按顺序完成以下步骤：
 
-1. **Read this file completely.** It defines the boundaries and conventions for this project.
-2. **Read `docs/ARCHITECTURE.md`** to understand the Electron layer structure.
-3. **Read `docs/PRODUCT.md`** to understand the feature requirements.
-4. **Run `bash init.sh`** to verify the project builds cleanly. If it fails, fix build errors before proceeding.
-5. **Read `feature_list.json`** to see the current state of all features.
+1. **完整阅读本文件。** 它定义了本项目的边界和约定。
+2. **阅读 `docs/ARCHITECTURE.md`**，理解 Electron 分层结构。
+3. **阅读 `docs/PRODUCT.md`**，理解功能需求。
+4. **运行 `bash init.sh`**，验证项目可以干净构建。如果失败，先修复构建错误。
+5. **阅读 `feature_list.json`**，查看所有功能的当前状态。
 
-## Electron Layer Boundaries
+## Electron 层边界
 
-This project has four strict layers. Code must respect these boundaries:
+本项目有四个严格分层，代码必须遵守这些边界。
 
-### Main Process (`src/main/`)
-- Owns the `BrowserWindow` lifecycle and IPC registration.
-- Imports services but never renderer code.
-- All filesystem access happens here via services.
+### 主进程（`src/main/`）
 
-### Preload (`src/preload/`)
-- The ONLY bridge between main and renderer.
-- Uses `contextBridge.exposeInMainWorld` to expose typed APIs.
-- Never imports React or renderer code.
+- 负责 `BrowserWindow` 生命周期和 IPC 注册。
+- 可以导入 services，但绝不能导入 renderer 代码。
+- 所有文件系统访问都通过 services 在这里发生。
 
-### Renderer (`src/renderer/`)
-- React + TypeScript UI layer.
-- Communicates with main process exclusively through `window.knowledgeBase` API.
-- Never imports Node.js modules (`fs`, `path`, `electron`).
-- Uses the type declarations in `types.d.ts`.
+### Preload（`src/preload/`）
 
-### Services (`src/services/`)
-- Pure TypeScript business logic running in the main process.
-- Services may import from `src/shared/` but never from `src/renderer/`.
-- Each service receives `PersistenceService` via constructor injection.
+- 是 main 和 renderer 之间唯一的桥梁。
+- 使用 `contextBridge.exposeInMainWorld` 暴露类型化 API。
+- 绝不导入 React 或 renderer 代码。
 
-## Conventions
+### Renderer（`src/renderer/`）
 
-- TypeScript strict mode is enabled. No `any` types without a comment explaining why.
-- Use named exports (no default exports).
-- IPC channel names are defined once in `src/shared/types.ts` (`IPC_CHANNELS`).
-- All async operations return Promises; never use synchronous I/O in the renderer.
+- React + TypeScript UI 层。
+- 只能通过 `window.knowledgeBase` API 与主进程通信。
+- 绝不导入 Node.js 模块（`fs`、`path`、`electron`）。
+- 使用 `types.d.ts` 中的类型声明。
 
-## Definition of Done
+### Services（`src/services/`）
 
-A feature is "done" when all of the following are true:
+- 在主进程中运行的纯 TypeScript 业务逻辑。
+- services 可以导入 `src/shared/`，但绝不导入 `src/renderer/`。
+- 每个 service 通过构造函数注入 `PersistenceService`。
 
-1. TypeScript compiles without errors (`npm run check`).
-2. The app launches and the window is visible (`npm run dev`).
-3. The feature appears in `feature_list.json` with status `"pass"` and evidence.
-4. The code respects Electron layer boundaries defined above.
-5. No console errors during normal operation.
+## 约定
 
-## Working with the Feature List
+- 启用 TypeScript strict mode。除非用注释解释原因，否则不要使用 `any`。
+- 使用 named exports，不使用 default exports。
+- IPC channel 名称只在 `src/shared/types.ts` 的 `IPC_CHANNELS` 中定义一次。
+- 所有异步操作返回 Promise；renderer 中绝不使用同步 I/O。
 
-The `feature_list.json` file is the source of truth for project progress:
+## 完成定义
 
-- Each feature has a `status`: `"pass"`, `"fail"`, `"not-started"`.
-- When implementing a feature, update its status to `"pass"` with evidence.
-- If a feature is blocked, set status to `"fail"` with a reason.
-- Never delete features from the list.
+一个功能只有同时满足以下条件，才算「完成」：
+
+1. TypeScript 无错误编译（`npm run check`）。
+2. 应用可以启动并显示窗口（`npm run dev`）。
+3. 该功能在 `feature_list.json` 中状态为 `"pass"`，并带有证据。
+4. 代码遵守上面定义的 Electron 层边界。
+5. 正常操作时没有 console error。
+
+## 使用功能列表
+
+`feature_list.json` 是项目进度的唯一真实来源：
+
+- 每个功能都有一个 `status`：`"pass"`、`"fail"`、`"not-started"`。
+- 实现功能后，将状态更新为 `"pass"` 并写入证据。
+- 如果功能被阻塞，将状态设为 `"fail"` 并写明原因。
+- 绝不要从列表中删除功能。

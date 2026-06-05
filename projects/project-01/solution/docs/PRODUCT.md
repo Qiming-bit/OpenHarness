@@ -1,46 +1,50 @@
-# Product Description -- Knowledge Base
+# 产品说明 -- Knowledge Base
 
-## What Is This?
+## 这是什么？
 
-A desktop application for managing a personal knowledge base. Users import text and Markdown documents, the system indexes them into searchable chunks, and a question-answering interface provides grounded answers with citations.
+这是一个用于管理个人知识库的桌面应用。用户可以导入文本和 Markdown 文档，系统会将文档索引为可搜索的 chunk，并通过问答界面返回带引用的有依据回答。
 
-## Core Features
+## 核心功能
 
-### Document Management
-- Import `.txt` and `.md` files into a local data store.
-- View document metadata: title, filename, size, import date, indexing status.
-- Browse a list of all imported documents in a sidebar panel.
-- Delete documents and their associated data.
+### 文档管理
 
-### Text Indexing
-- Split documents into ~500-character chunks at paragraph boundaries.
-- Store chunks with metadata (character count, word count).
-- Track indexing status per document and overall.
-- Support indexing individual documents or the full library.
+- 将 `.txt` 和 `.md` 文件导入本地数据存储。
+- 查看文档元数据：标题、文件名、大小、导入日期、索引状态。
+- 在侧边栏浏览所有已导入文档。
+- 删除文档及其关联数据。
 
-### Grounded Q&A
-- Ask natural language questions about the document library.
-- Receive answers with citations pointing to specific document chunks.
-- Confidence scores indicate answer reliability (0.85 with citations, 0.30 without).
-- Full Q&A history is persisted across sessions.
+### 文本索引
 
-### Status Bar
-- Real-time display of index status (idle, indexing, ready, error).
-- Document count and last activity timestamp.
+- 在段落边界将文档切分为约 500 字符的 chunk。
+- 存储 chunk 及其元数据（字符数、词数）。
+- 跟踪单个文档和整体的索引状态。
+- 支持索引单个文档或整个文档库。
 
-## Technical Requirements
+### 有依据问答
 
-- Runs as a desktop application via Electron.
-- No external API dependencies -- all processing is local.
-- TypeScript throughout with strict mode.
-- React 18 for the UI with a dark theme.
-- Data stored locally in the user's application data directory.
+- 围绕文档库提出自然语言问题。
+- 接收带引用的回答，引用指向具体文档 chunk。
+- 置信度评分表示回答可靠性（有引用时为 0.85，没有引用时为 0.30）。
+- 完整问答历史会跨会话持久化。
 
-## User Interface
+### 状态栏
 
-The interface has a three-panel layout:
+- 实时显示索引状态（idle、indexing、ready、error）。
+- 显示文档数量和最后活动时间戳。
 
-```
+## 技术要求
+
+- 通过 Electron 作为桌面应用运行。
+- 不依赖外部 API，所有处理都在本地完成。
+- 全项目使用 TypeScript，并启用 strict mode。
+- UI 使用 React 18，并采用深色主题。
+- 数据存储在用户的应用数据目录中。
+
+## 用户界面
+
+界面采用三面板布局：
+
+```text
 +------------------+----------------------------------------+
 | Header           |                                Refresh |
 +------------------+----------------------------------------+
@@ -55,9 +59,9 @@ The interface has a three-panel layout:
 +-----------------------------------------------------------+
 ```
 
-## Constraints
+## 约束
 
-- Maximum supported file size: 10 MB.
-- Supported formats: `.txt`, `.md`.
-- Q&A uses mock patterns -- no LLM integration in this version.
-- All data is local; no network requests.
+- 支持的最大文件大小：10 MB。
+- 支持格式：`.txt`、`.md`。
+- Q&A 使用模拟模式，本版本不集成 LLM。
+- 所有数据都在本地，不发起网络请求。

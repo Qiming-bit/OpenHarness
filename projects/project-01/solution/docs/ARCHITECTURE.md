@@ -1,18 +1,18 @@
-# Architecture -- Knowledge Base Electron App
+# 架构 -- 知识库 Electron 应用
 
-## System Overview
+## 系统概览
 
-The Knowledge Base is an Electron desktop application built with TypeScript and React. It provides document import, text indexing with chunking, and grounded question answering with citations.
+Knowledge Base 是一个使用 TypeScript 和 React 构建的 Electron 桌面应用。它提供文档导入、带分块的文本索引，以及带引用的有依据问答。
 
-## Layer Diagram
+## 分层图
 
-```
+```text
 +-----------------------------------------------------------+
 |                     Renderer (React)                       |
 |  App.tsx -> DocumentList, DocumentDetail, QuestionPanel,  |
 |             StatusBar, ImportPanel                         |
 +-----------------------------------------------------------+
-         |  window.knowledgeBase.* (typed IPC bridge)
+         |  window.knowledgeBase.*（类型化 IPC bridge）
 +-----------------------------------------------------------+
 |                     Preload Script                         |
 |  contextBridge.exposeInMainWorld -> documents, indexing, qa|
@@ -27,25 +27,25 @@ The Knowledge Base is an Electron desktop application built with TypeScript and 
 +-----------------------------------------------------------+
 |                     Services Layer                         |
 |  DocumentService | IndexingService | QaService             |
-|  PersistenceService (filesystem I/O)                       |
+|  PersistenceService（文件系统 I/O）                         |
 +-----------------------------------------------------------+
 ```
 
-## Electron Layers
+## Electron 分层
 
-### Main Process (`src/main/`)
+### 主进程（`src/main/`）
 
-The main process is the Node.js process that manages the application lifecycle. Responsibilities:
+主进程是管理应用生命周期的 Node.js 进程。职责包括：
 
-- **Window management**: Creates `BrowserWindow` instances with secure web preferences (`contextIsolation: true`, `nodeIntegration: false`).
-- **IPC registration**: Maps IPC channel names to service methods via `registerIpcHandlers()`.
-- **Service initialization**: Constructs `PersistenceService`, `DocumentService`, `IndexingService`, and `QaService` with dependency injection.
+- **窗口管理**：创建 `BrowserWindow`，并使用安全的 web preferences（`contextIsolation: true`、`nodeIntegration: false`）。
+- **IPC 注册**：通过 `registerIpcHandlers()` 将 IPC channel 名称映射到 service 方法。
+- **Service 初始化**：通过依赖注入构造 `PersistenceService`、`DocumentService`、`IndexingService` 和 `QaService`。
 
-**Key invariant**: The main process never imports React or renderer code.
+**关键不变量**：主进程绝不导入 React 或 renderer 代码。
 
-### Preload (`src/preload/`)
+### Preload（`src/preload/`）
 
-The preload script runs in the renderer context before any page scripts load. It uses Electron's `contextBridge` to expose a limited, typed API:
+preload 脚本会在页面脚本加载前运行在 renderer 上下文中。它使用 Electron 的 `contextBridge` 暴露一个受限的、类型化的 API：
 
 ```typescript
 window.knowledgeBase = {
@@ -55,60 +55,60 @@ window.knowledgeBase = {
 }
 ```
 
-**Key invariant**: The preload bridge is the only communication channel between renderer and main. No Node.js modules are accessible from the renderer.
+**关键不变量**：preload bridge 是 renderer 和 main 之间唯一的通信通道。renderer 不能访问任何 Node.js 模块。
 
-### Renderer (`src/renderer/`)
+### Renderer（`src/renderer/`）
 
-The renderer is a React 18 application bundled by Vite. Components:
+renderer 是由 Vite 打包的 React 18 应用。组件包括：
 
-- `App.tsx` -- Root layout with header, sidebar, main panel, and status bar.
-- `DocumentList` -- Sidebar listing of imported documents.
-- `DocumentDetail` -- Shows document metadata, chunks, and indexing controls.
-- `ImportPanel` -- File input for importing .txt and .md documents.
-- `QuestionPanel` -- Text input for asking questions.
-- `StatusBar` -- Shows index status and document count.
+- `App.tsx`：包含 header、sidebar、main panel 和 status bar 的根布局。
+- `DocumentList`：展示已导入文档的 sidebar 列表。
+- `DocumentDetail`：展示文档元数据、chunk 和索引控制。
+- `ImportPanel`：用于导入 `.txt` 和 `.md` 文档的文件输入。
+- `QuestionPanel`：用于提问的文本输入。
+- `StatusBar`：显示索引状态和文档数量。
 
-**Key invariant**: Renderer code never imports `fs`, `path`, `electron`, or any Node.js module.
+**关键不变量**：renderer 代码绝不导入 `fs`、`path`、`electron` 或任何 Node.js 模块。
 
-### Services (`src/services/`)
+### Services（`src/services/`）
 
-Business logic classes running in the main process:
+在主进程中运行的业务逻辑 class：
 
-- `PersistenceService` -- Low-level JSON/text file I/O with atomic writes.
-- `DocumentService` -- Document CRUD operations (import, list, get, update, delete).
-- `IndexingService` -- Paragraph-aware chunking (~500 chars per chunk) and index management.
-- `QaService` -- Mock question answering with keyword-based retrieval and citation generation.
+- `PersistenceService`：底层 JSON / 文本文件 I/O，使用原子写入。
+- `DocumentService`：文档 CRUD 操作（导入、列表、获取、更新、删除）。
+- `IndexingService`：段落感知分块（每个 chunk 约 500 字符）和索引管理。
+- `QaService`：基于关键词检索和引用生成的模拟问答。
 
-**Key invariant**: Services may import shared types but never renderer code.
+**关键不变量**：services 可以导入共享类型，但绝不导入 renderer 代码。
 
-## Data Flow
+## 数据流
 
-1. User interacts with a React component (e.g., clicks "Ask").
-2. Component calls `window.knowledgeBase.qa.ask(question)`.
-3. Preload bridge invokes `ipcRenderer.invoke('qa:ask', question)`.
-4. Main process IPC handler delegates to `QaService.ask()`.
-5. QaService retrieves chunks, scores by keyword overlap, generates answer.
-6. Response flows back through IPC to the renderer.
-7. React component updates state and re-renders.
+1. 用户与 React 组件交互，例如点击「Ask」。
+2. 组件调用 `window.knowledgeBase.qa.ask(question)`。
+3. Preload bridge 调用 `ipcRenderer.invoke('qa:ask', question)`。
+4. 主进程 IPC handler 转发给 `QaService.ask()`。
+5. `QaService` 检索 chunk，按关键词重叠打分，并生成回答。
+6. 响应通过 IPC 返回 renderer。
+7. React 组件更新 state 并重新渲染。
 
-## Build Pipeline
+## 构建流水线
 
-1. `tsc -p tsconfig.node.json` compiles main, preload, shared, and services to `dist/`.
-2. `vite build` bundles the renderer React app to `dist/renderer/`.
-3. Electron loads `dist/main/main.js` as the entry point.
+1. `tsc -p tsconfig.node.json` 将 main、preload、shared 和 services 编译到 `dist/`。
+2. `vite build` 将 renderer React 应用打包到 `dist/renderer/`。
+3. Electron 加载 `dist/main/main.js` 作为入口。
 
-## Data Storage
+## 数据存储
 
-All user data is stored under `app.getPath('userData')/knowledge-base-data/`:
+所有用户数据都存储在 `app.getPath('userData')/knowledge-base-data/` 下：
 
-```
+```text
 knowledge-base-data/
-  documents-meta.json     # Document metadata array
+  documents-meta.json     # 文档元数据数组
   content/
-    <doc-id>.txt          # Extracted text content per document
+    <doc-id>.txt          # 每个文档提取出的文本内容
   chunks/
-    <doc-id>.json         # Chunk array per document
+    <doc-id>.json         # 每个文档的 chunk 数组
   index/
-    index-meta.json       # Mapping of document IDs to chunk IDs
-  qa-history.json         # Q&A interaction log
+    index-meta.json       # 文档 ID 到 chunk ID 的映射
+  qa-history.json         # 问答交互日志
 ```

@@ -1,37 +1,37 @@
 {
   "project": "project-01",
-  "description": "Baseline Electron knowledge base with minimal harness",
+  "description": "带有最小 harness 的 baseline Electron 知识库应用",
   "features": [
     {
       "id": "window-launch",
-      "name": "Window Launch",
-      "description": "Electron app opens a BrowserWindow with correct dimensions and preload script",
+      "name": "窗口启动",
+      "description": "Electron 应用打开一个尺寸正确并加载 preload 脚本的 BrowserWindow",
       "status": "pass",
-      "evidence": "npm run dev launches window at 1200x800 with contextIsolation=true and nodeIntegration=false",
+      "evidence": "npm run dev 会以 1200x800 启动窗口，并设置 contextIsolation=true、nodeIntegration=false",
       "testedAt": "2026-03-30T10:00:00Z"
     },
     {
       "id": "document-list",
-      "name": "Document List Panel",
-      "description": "Left sidebar shows imported documents with empty state message",
+      "name": "文档列表面板",
+      "description": "左侧边栏显示导入文档，并在无文档时显示空状态提示",
       "status": "pass",
-      "evidence": "DocumentList component renders empty state when no documents, shows document cards when data present",
+      "evidence": "DocumentList 组件在无文档时渲染空状态，有数据时显示文档卡片",
       "testedAt": "2026-03-30T10:05:00Z"
     },
     {
       "id": "question-panel",
-      "name": "Question Panel",
-      "description": "Bottom input bar accepts questions and submits via IPC",
+      "name": "问答面板",
+      "description": "底部输入栏可以接收问题，并通过 IPC 提交",
       "status": "pass",
-      "evidence": "QuestionPanel renders text input and Ask button, submits to window.knowledgeBase.qa.ask on Enter or click",
+      "evidence": "QuestionPanel 渲染文本输入框和 Ask 按钮，并在按 Enter 或点击时提交到 window.knowledgeBase.qa.ask",
       "testedAt": "2026-03-30T10:08:00Z"
     },
     {
       "id": "data-directory",
-      "name": "Data Directory",
-      "description": "PersistenceService creates and manages userData/knowledge-base-data directory",
+      "name": "数据目录",
+      "description": "PersistenceService 创建并管理 userData/knowledge-base-data 目录",
       "status": "pass",
-      "evidence": "PersistenceService constructor calls ensureDirectories() creating data, documents, and index subdirectories",
+      "evidence": "PersistenceService 构造函数调用 ensureDirectories()，创建 data、documents 和 index 子目录",
       "testedAt": "2026-03-30T10:10:00Z"
     }
   ]

@@ -1,43 +1,46 @@
-# Software Design Notes
+# 软件设计笔记
 
-## Architecture Overview
+## 架构概览
 
-The knowledge base application follows a layered architecture pattern with clear separation of concerns. The system is divided into four primary layers: the main process, preload scripts, the renderer layer, and services.
+知识库应用采用分层架构，明确分离各层职责。系统分为四个主要层：主进程、preload 脚本、renderer 层和 services 层。
 
-## Main Process
+## 主进程
 
-The main process is responsible for window management, IPC handler registration, and lifecycle management. It serves as the entry point for the Electron application and coordinates between the operating system and the renderer process.
+主进程负责窗口管理、IPC handler 注册和应用生命周期管理。它是 Electron 应用的入口，负责协调操作系统和 renderer 进程。
 
-Key responsibilities:
-- BrowserWindow creation and configuration
-- IPC channel registration
-- Service initialization and dependency injection
-- Application lifecycle events (ready, window-all-closed, activate)
+主要职责：
 
-## Preload Layer
+- 创建和配置 `BrowserWindow`
+- 注册 IPC channel
+- 初始化 service 并注入依赖
+- 处理应用生命周期事件（`ready`、`window-all-closed`、`activate`）
 
-The preload script acts as a secure bridge between the main and renderer processes. It uses Electron's contextBridge to expose a typed API to the renderer without granting full Node.js access.
+## Preload 层
 
-The exposed API is organized into three namespaces:
-- `documents` - CRUD operations for document management
-- `indexing` - Document chunking and index management
-- `qa` - Question answering with citations
+preload 脚本是主进程和 renderer 进程之间的安全桥梁。它使用 Electron 的 `contextBridge` 向 renderer 暴露类型化 API，同时避免授予完整的 Node.js 访问权限。
 
-## Renderer Layer
+暴露的 API 分为三个命名空间：
 
-The renderer uses React with TypeScript to build the user interface. Components communicate exclusively through the preload bridge API, never directly accessing Node.js APIs or the filesystem.
+- `documents`：文档管理的 CRUD 操作
+- `indexing`：文档分块和索引管理
+- `qa`：带引用的问答
 
-## Services Layer
+## Renderer 层
 
-Business logic lives in service classes that run in the main process:
-- `PersistenceService` - Filesystem read/write operations
-- `DocumentService` - Document import, storage, and retrieval
-- `IndexingService` - Text chunking and index building
-- `QaService` - Mock Q&A with citation support
+renderer 使用 React 和 TypeScript 构建用户界面。组件只能通过 preload bridge API 通信，不能直接访问 Node.js API 或文件系统。
 
-## Data Flow
+## Services 层
 
-1. User action in renderer triggers IPC call via preload bridge
-2. IPC handler in main process delegates to appropriate service
-3. Service performs business logic using persistence layer
-4. Result flows back through IPC to renderer for display
+业务逻辑放在主进程中运行的 service class 里：
+
+- `PersistenceService`：文件系统读写操作
+- `DocumentService`：文档导入、存储和检索
+- `IndexingService`：文本分块和索引构建
+- `QaService`：带引用支持的模拟问答
+
+## 数据流
+
+1. 用户在 renderer 中触发操作，并通过 preload bridge 发起 IPC 调用。
+2. 主进程中的 IPC handler 将请求转发给对应 service。
+3. service 通过 persistence 层执行业务逻辑。
+4. 结果通过 IPC 返回 renderer 并展示。

@@ -1,46 +1,51 @@
-# Retrieval Plan
+# 检索计划
 
-## Overview
+## 概览
 
-This document outlines the strategy for implementing text retrieval in the knowledge base application. The goal is to enable grounded question answering over imported documents without requiring an external LLM API.
+本文档说明知识库应用中的文本检索策略。目标是在不依赖外部 LLM API 的情况下，对导入文档进行有依据的问答。
 
-## Chunking Approach
+## 分块方式
 
-Documents are split into chunks using a paragraph-aware algorithm:
-- Split on double newlines (paragraph boundaries)
-- Merge short paragraphs until chunk reaches ~500 characters
-- Each chunk gets a unique ID, document reference, and metadata
+文档使用段落感知算法切分为 chunk：
 
-## Keyword Matching
+- 按双换行切分（段落边界）
+- 合并较短段落，直到 chunk 接近 500 个字符
+- 每个 chunk 都有唯一 ID、文档引用和元数据
 
-The retrieval system uses keyword-based matching:
-1. Tokenize the question into individual words
-2. Filter out stop words (words shorter than 3 characters)
-3. For each chunk, count how many question keywords appear in the content
-4. Rank chunks by keyword overlap score
-5. Return top 2 most relevant chunks as citations
+## 关键词匹配
 
-## Citation Format
+检索系统使用基于关键词的匹配：
 
-Each citation includes:
-- Document ID and title
-- Chunk index within the document
-- Text excerpt (first 200 characters of the chunk)
+1. 将问题切分为单词。
+2. 过滤停用词（少于 3 个字符的词）。
+3. 对每个 chunk，统计问题关键词在内容中出现的数量。
+4. 按关键词重叠分数排序 chunk。
+5. 返回最相关的前 2 个 chunk 作为引用。
 
-## Mock Q&A Patterns
+## 引用格式
 
-The mock Q&A service includes predefined answer patterns for common topics:
-- Architecture and design questions
-- Document import and management
-- Indexing and search
-- Meeting notes and summaries
+每条引用包含：
 
-For questions that don't match a pattern, the system returns a generic response based on the most relevant citation, or indicates that no indexed documents are available.
+- 文档 ID 和标题
+- chunk 在文档中的序号
+- 文本摘录（chunk 前 200 个字符）
 
-## Confidence Scoring
+## 模拟问答模式
 
-Responses include a confidence score:
-- 0.85 when citations are found
-- 0.30 when no citations are available
+模拟问答 service 为常见主题提供预设回答模式：
 
-This scoring system allows the UI to visually distinguish between well-grounded and speculative answers.
+- 架构和设计问题
+- 文档导入和管理
+- 索引和搜索
+- 会议记录和摘要
+
+如果问题不匹配任何模式，系统会基于最相关引用返回通用回答，或者提示当前没有可用的已索引文档。
+
+## 置信度评分
+
+回答包含置信度评分：
+
+- 找到引用时为 0.85
+- 没有引用时为 0.30
+
+这个评分系统让 UI 能区分有充分依据的回答和推测性回答。
